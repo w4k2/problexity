@@ -2,7 +2,7 @@
 import problexity as px
 from sklearn.datasets import make_classification
 import numpy as np
-
+    
 def _get_comparison(metric):
     reps = 10
     res = np.zeros((reps, 2))
@@ -45,17 +45,17 @@ def test_F4():
     metric = px.F4
     assert _get_comparison(metric)>0.5
 
-# def test_L1():
-#     metric = px.L1
-#     assert _get_comparison(metric)>0.5
+def test_L1():
+    metric = px.L1
+    assert _get_comparison(metric)>0.5
 
-# def test_L2():
-#     metric = px.L2
-#     assert _get_comparison(metric)>0.5
+def test_L2():
+    metric = px.L2
+    assert _get_comparison(metric)>0.5
 
-# def test_L3():
-#     metric = px.L3
-#     assert _get_comparison(metric)>0.5
+def test_L3():
+    metric = px.L3
+    assert _get_comparison(metric)>0.5
 
 def test_N1():
     metric = px.N1
