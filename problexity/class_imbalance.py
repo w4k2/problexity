@@ -2,11 +2,9 @@ import numpy as np
 
 def C1(X_input, y_input):
 
-    X = np.copy(X_input)
     y = np.copy(y_input)
 
-    classes = 2
-
+    classes = np.unique(y).shape[0]
     p = np.zeros((classes))
     for c in range(classes):
         p[c] = np.sum(y==c)/y.shape[0]
@@ -15,12 +13,10 @@ def C1(X_input, y_input):
 
 def C2(X_input, y_input):
 
-    X = np.copy(X_input)
     y = np.copy(y_input)
 
-    classes = 2
+    classes = np.unique(y).shape[0]
     p = np.zeros((classes))
-
     for c in range(classes):
         p[c] = np.sum(y==c)/np.sum(y!=c)
 

@@ -73,7 +73,6 @@ def N4(X_input, y_input):
 
     return np.sum(pred!=y_new)/y_new.shape[0]
 
-
 def find_radius(D, i):
     j = np.argmin(D[i])
     di = D[i, j]
