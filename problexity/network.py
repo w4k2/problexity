@@ -26,6 +26,21 @@ def _get_graph(X, y):
 
 
 def density(X_input, y_input):
+    """
+    Calculates the Density metric.
+
+    .. math::
+
+        C1=-\\frac{1}{log(n_c)}\sum_{i=1}^{n_c}p_{c_i}log(p_{c_i})
+
+    :type X_input: array-like, shape (n_samples, n_features)
+    :param X_input: Dataset.
+    :type y_input: array-like, shape (n_samples)
+    :param y_input: Labels.
+
+    :rtype: float
+    :returns: Density score.
+    """
     
     X = np.copy(X_input)
     y = np.copy(y_input)
@@ -36,6 +51,21 @@ def density(X_input, y_input):
 
 
 def clsCoef(X_input, y_input):
+    """
+    Calculates the Clustering Coefficient metric.
+
+    .. math::
+
+        C1=-\\frac{1}{log(n_c)}\sum_{i=1}^{n_c}p_{c_i}log(p_{c_i})
+
+    :type X_input: array-like, shape (n_samples, n_features)
+    :param X_input: Dataset.
+    :type y_input: array-like, shape (n_samples)
+    :param y_input: Labels.
+
+    :rtype: float
+    :returns: Clustering Coefficient score.
+    """
     
     X = np.copy(X_input)
     y = np.copy(y_input)
@@ -60,6 +90,21 @@ def clsCoef(X_input, y_input):
     return 1 - (np.sum(sum_conncetions/(sum_neighbours*(sum_neighbours-1))))/y.shape[0]
 
 def hubs(X_input, y_input):
+    """
+    Calculates the Hubs metric.
+
+    .. math::
+
+        C1=-\\frac{1}{log(n_c)}\sum_{i=1}^{n_c}p_{c_i}log(p_{c_i})
+
+    :type X_input: array-like, shape (n_samples, n_features)
+    :param X_input: Dataset.
+    :type y_input: array-like, shape (n_samples)
+    :param y_input: Labels.
+
+    :rtype: float
+    :returns: Hubs score.
+    """
     
     X = np.copy(X_input)
     y = np.copy(y_input)

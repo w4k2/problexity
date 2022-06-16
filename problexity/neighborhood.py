@@ -1,3 +1,6 @@
+"""
+Neighborhood measures
+"""
 import numpy as np
 from scipy.spatial import distance_matrix
 from scipy.sparse import csr_matrix
@@ -6,6 +9,21 @@ from sklearn.model_selection import LeaveOneOut
 from sklearn.neighbors import KNeighborsClassifier
 
 def N1(X_input, y_input):
+    """
+    Calculates the Fraction of borderline points (N1) metric.
+
+    .. math::
+
+        C1=-\\frac{1}{log(n_c)}\sum_{i=1}^{n_c}p_{c_i}log(p_{c_i})
+
+    :type X_input: array-like, shape (n_samples, n_features)
+    :param X_input: Dataset.
+    :type y_input: array-like, shape (n_samples)
+    :param y_input: Labels.
+
+    :rtype: float
+    :returns: N1 score.
+    """
     
     X = np.copy(X_input)
     y = np.copy(y_input)
@@ -18,7 +36,22 @@ def N1(X_input, y_input):
 
     return (np.sum(np.sum(y[coordinates], axis=1)==1)/2)/y.shape[0]
 
-def N2(X_input, y_input):
+def N2(X_input, y_input):    
+    """
+    Calculates the Ratio of intra/extra class NN distance (N2) metric.
+
+    .. math::
+
+        C1=-\\frac{1}{log(n_c)}\sum_{i=1}^{n_c}p_{c_i}log(p_{c_i})
+
+    :type X_input: array-like, shape (n_samples, n_features)
+    :param X_input: Dataset.
+    :type y_input: array-like, shape (n_samples)
+    :param y_input: Labels.
+
+    :rtype: float
+    :returns: N2 score.
+    """   
     
     X = np.copy(X_input)
     y = np.copy(y_input)
@@ -37,7 +70,22 @@ def N2(X_input, y_input):
 
 
 def N3(X_input, y_input):
-    
+    """
+    Calculates the Error rate of NN classifier (N4) metric.
+
+    .. math::
+
+        C1=-\\frac{1}{log(n_c)}\sum_{i=1}^{n_c}p_{c_i}log(p_{c_i})
+
+    :type X_input: array-like, shape (n_samples, n_features)
+    :param X_input: Dataset.
+    :type y_input: array-like, shape (n_samples)
+    :param y_input: Labels.
+
+    :rtype: float
+    :returns: N3 score.
+    """   
+
     X = np.copy(X_input)
     y = np.copy(y_input)
 
@@ -52,6 +100,21 @@ def N3(X_input, y_input):
 
 
 def N4(X_input, y_input):
+    """
+    Calculates the Nonlinearity of NN classifier (N4) metric.
+
+    .. math::
+
+        C1=-\\frac{1}{log(n_c)}\sum_{i=1}^{n_c}p_{c_i}log(p_{c_i})
+
+    :type X_input: array-like, shape (n_samples, n_features)
+    :param X_input: Dataset.
+    :type y_input: array-like, shape (n_samples)
+    :param y_input: Labels.
+
+    :rtype: float
+    :returns: N4 score.
+    """   
     
     X = np.copy(X_input)
     y = np.copy(y_input)
@@ -84,7 +147,22 @@ def find_radius(D, i):
         return di - dt
 
 def T1(X_input, y_input):
-    
+    """
+    Calculates the Fraction of hyperspheres covering data (T1) metric.
+
+    .. math::
+
+        C1=-\\frac{1}{log(n_c)}\sum_{i=1}^{n_c}p_{c_i}log(p_{c_i})
+
+    :type X_input: array-like, shape (n_samples, n_features)
+    :param X_input: Dataset.
+    :type y_input: array-like, shape (n_samples)
+    :param y_input: Labels.
+
+    :rtype: float
+    :returns: T1 score.
+    """   
+
     X = np.copy(X_input)
     y = np.copy(y_input)
     
@@ -132,7 +210,22 @@ def T1(X_input, y_input):
     return hyper/X.shape[0]
 
 def LSC(X_input, y_input):
-    
+    """
+    Calculates the Local set average cardinality (LSC) metric.
+
+    .. math::
+
+        C1=-\\frac{1}{log(n_c)}\sum_{i=1}^{n_c}p_{c_i}log(p_{c_i})
+
+    :type X_input: array-like, shape (n_samples, n_features)
+    :param X_input: Dataset.
+    :type y_input: array-like, shape (n_samples)
+    :param y_input: Labels.
+
+    :rtype: float
+    :returns: LSC score.
+    """   
+
     X = np.copy(X_input)
     y = np.copy(y_input)
     

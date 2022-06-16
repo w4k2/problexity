@@ -1,6 +1,24 @@
+"""
+Feature-based measures
+"""
 import numpy as np
 
 def F1(X_input, y_input):
+    """
+    Calculates the Maximum Fisher's discriminant ratio (F1) metric.
+
+    .. math::
+
+        C1=-\\frac{1}{log(n_c)}\sum_{i=1}^{n_c}p_{c_i}log(p_{c_i})
+
+    :type X_input: array-like, shape (n_samples, n_features)
+    :param X_input: Dataset.
+    :type y_input: array-like, shape (n_samples)
+    :param y_input: Labels.
+
+    :rtype: float
+    :returns: F1 score.
+    """
     
     X = np.copy(X_input)
     y = np.copy(y_input)
@@ -24,6 +42,21 @@ def F1(X_input, y_input):
     return 1 / (1+np.max(r_all))
 
 def F1v(X_input, y_input):
+    """
+    Calculates the Directional vector maximum Fisher's discriminant ratio (F1v) metric.
+
+    .. math::
+
+        C1=-\\frac{1}{log(n_c)}\sum_{i=1}^{n_c}p_{c_i}log(p_{c_i})
+
+    :type X_input: array-like, shape (n_samples, n_features)
+    :param X_input: Dataset.
+    :type y_input: array-like, shape (n_samples)
+    :param y_input: Labels.
+
+    :rtype: float
+    :returns: F1v score.
+    """
     
     X = np.copy(X_input)
     y = np.copy(y_input)
@@ -64,7 +97,22 @@ def F1v(X_input, y_input):
 
 
 def F2(X_input, y_input):
-    
+    """
+    Calculates the Volume of overlapping region (F2) metric.
+
+    .. math::
+
+        C1=-\\frac{1}{log(n_c)}\sum_{i=1}^{n_c}p_{c_i}log(p_{c_i})
+
+    :type X_input: array-like, shape (n_samples, n_features)
+    :param X_input: Dataset.
+    :type y_input: array-like, shape (n_samples)
+    :param y_input: Labels.
+
+    :rtype: float
+    :returns: F2 score.
+    """
+
     X = np.copy(X_input)
     y = np.copy(y_input)
 
@@ -82,6 +130,22 @@ def F2(X_input, y_input):
     return np.product(f_overlap/f_range)
 
 def F3(X_input, y_input):
+    """
+    Calculates the Maximum individual feature efficiency (F3) metric.
+
+    .. math::
+
+        C1=-\\frac{1}{log(n_c)}\sum_{i=1}^{n_c}p_{c_i}log(p_{c_i})
+
+    :type X_input: array-like, shape (n_samples, n_features)
+    :param X_input: Dataset.
+    :type y_input: array-like, shape (n_samples)
+    :param y_input: Labels.
+
+    :rtype: float
+    :returns: F3 score.
+    """
+
     
     X = np.copy(X_input)
     y = np.copy(y_input)
@@ -101,7 +165,22 @@ def F3(X_input, y_input):
 
 
 def F4(X_input, y_input):
-    
+    """
+    Calculates the Collective feature efficiency (F4) metric.
+
+    .. math::
+
+        C1=-\\frac{1}{log(n_c)}\sum_{i=1}^{n_c}p_{c_i}log(p_{c_i})
+
+    :type X_input: array-like, shape (n_samples, n_features)
+    :param X_input: Dataset.
+    :type y_input: array-like, shape (n_samples)
+    :param y_input: Labels.
+
+    :rtype: float
+    :returns: F4 score.
+    """
+
     X = np.copy(X_input)
     y = np.copy(y_input)
 

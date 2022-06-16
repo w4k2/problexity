@@ -22,6 +22,11 @@ Welcome to problexity documentation!
    :caption: Documentation
 
    class_imbalance_api
+   dimensionality_api
+   feature_based_api
+   linearity_api
+   neighborhood_api
+   network_api
    
 .. toctree::
    :maxdepth: 2
