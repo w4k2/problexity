@@ -11,3 +11,4 @@ pillow
 sphinxcontrib-bibtex
 gower
 igraph
+pandas
