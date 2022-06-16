@@ -37,7 +37,8 @@ jobs:
           name: Run tests
           # This assumes pytest is installed via the install-package step above
           command: |
-            bash ci_scripts/travis/install.sh
+            pip install --upgrade pytest pytest-cov codecov matplotlib coveralls tqdm numpy gower igraph
+            python setup.py develop
             make test
 
 # Invoke jobs via workflows
