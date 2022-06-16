@@ -1,8 +1,8 @@
 # problexity
 
-[![Travis Status](https://travis-ci.org/w4k2/problem-complexity.svg?branch=master)](https://travis-ci.org/w4k2/problem-complexity)
-[![Documentation Status](https://readthedocs.org/projects/problem-complexity/badge/?version=latest)](http://problem-complexity.readthedocs.io)
-[![PyPI version](https://badge.fury.io/py/problem-complexity.svg)](https://badge.fury.io/py/problem-complexity)
+[![Travis Status](https://travis-ci.org/w4k2/problexity.svg?branch=master)](https://travis-ci.org/w4k2/problexity)
+[![Documentation Status](https://readthedocs.org/projects/problexity/badge/?version=latest)](http://problexity.readthedocs.io)
+[![PyPI version](https://badge.fury.io/py/problexity.svg)](https://badge.fury.io/py/problexity)
 
 The `problexity` module is a ...
 
