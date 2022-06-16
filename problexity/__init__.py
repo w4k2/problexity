@@ -1,4 +1,3 @@
-from .methods import foo
 from .feature_based import F1, F1v, F2, F3, F4
 from .linearity import L1, L2, L3
 from .neighborhood import N1, N2, N3, N4, T1, LSC
@@ -8,7 +7,6 @@ from .class_imbalance import C1, C2
 from ._version import __version__
 
 __all__ = [
-    "foo",
     "F1", 
     "F1v", 
     "F2",

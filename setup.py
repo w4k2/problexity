@@ -14,7 +14,7 @@ with open(path.join(this_directory, "README.md"), encoding="utf-8") as f:
     long_description = f.read()
 
 # get __version__ from _version.py
-ver_file = os.path.join("strlearn", "_version.py")
+ver_file = os.path.join("problexity", "_version.py")
 with open(ver_file) as f:
     exec(f.read())
 
