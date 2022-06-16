@@ -21,7 +21,7 @@ Welcome to problexity documentation!
    :hidden:
    :caption: Documentation
 
-   metrics_api
+   class_imbalance_api
    
 .. toctree::
    :maxdepth: 2
