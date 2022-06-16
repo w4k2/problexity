@@ -37,7 +37,7 @@ jobs:
           name: Run tests
           # This assumes pytest is installed via the install-package step above
           command: |
-            pip install --upgrade pytest pytest-cov codecov matplotlib coveralls tqdm numpy gower igraph
+            pip install --upgrade pytest pytest-cov codecov matplotlib coveralls tqdm numpy gower igraph pandas
             python setup.py develop
             make test
 
