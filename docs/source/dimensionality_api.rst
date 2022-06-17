@@ -5,9 +5,9 @@ Dimensionality Measures
 .. currentmodule:: problexity
 
 .. autosummary::
-  T2
-  T3
-  T4
+  t2
+  t3
+  t4
 
 .. automodule:: problexity
   :members:

@@ -5,12 +5,12 @@ Neighborhood Measures
 .. currentmodule:: problexity
 
 .. autosummary::
-  N1
-  N2
-  N3
-  N4
-  T1
-  LSC
+  n1
+  n2
+  n3
+  n4
+  t1
+  lsc
 
 .. automodule:: problexity
   :members:
