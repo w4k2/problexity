@@ -4,27 +4,27 @@ Linearity measures
 import numpy as np
 from sklearn.svm import LinearSVC
 
-def L1(X_input, y_input):
+def L1(X, y):
     """
     Calculates the Sum of the error distance by linear programming (L1) metric.
 
     .. math::
 
-        C1=-\\frac{1}{log(n_c)}\sum_{i=1}^{n_c}p_{c_i}log(p_{c_i})
+        L1=\\frac{SumErrorDist}{1+SumErrorDist}
 
-    :type X_input: array-like, shape (n_samples, n_features)
-    :param X_input: Dataset.
-    :type y_input: array-like, shape (n_samples)
-    :param y_input: Labels.
+    :type X: array-like, shape (n_samples, n_features)
+    :param X: Dataset.
+    :type y: array-like, shape (n_samples)
+    :param y: Labels.
 
     :rtype: float
     :returns: L1 score.
     """    
-    X = np.copy(X_input)
-    y = np.copy(y_input)
+    X = np.copy(X)
+    y = np.copy(y)
 
     svm = LinearSVC()
-    pred = svm.fit(X_input, y_input).predict(X_input)
+    pred = svm.fit(X, y).predict(X)
 
     X_mistakes = X[pred!=y]
     y_mistakes = y[pred!=y]
@@ -34,25 +34,25 @@ def L1(X_input, y_input):
     sed = loss/y.shape[0]
     return sed/(1+sed)
 
-def L2(X_input, y_input):
+def L2(X, y):
     """
     Calculates the Error rate of linear classifier (L2) metric.
 
     .. math::
 
-        C1=-\\frac{1}{log(n_c)}\sum_{i=1}^{n_c}p_{c_i}log(p_{c_i})
+        L2=\\frac{\sum^{n}_{i=1}I(h(x_i)\\neq y_i)}{n}
 
-    :type X_input: array-like, shape (n_samples, n_features)
-    :param X_input: Dataset.
-    :type y_input: array-like, shape (n_samples)
-    :param y_input: Labels.
+    :type X: array-like, shape (n_samples, n_features)
+    :param X: Dataset.
+    :type y: array-like, shape (n_samples)
+    :param y: Labels.
 
     :rtype: float
     :returns: L2 score.
     """
 
-    X = np.copy(X_input)
-    y = np.copy(y_input)
+    X = np.copy(X)
+    y = np.copy(y)
 
     svm = LinearSVC()
     pred = svm.fit(X, y).predict(X)
@@ -60,25 +60,25 @@ def L2(X_input, y_input):
     return np.sum(pred!=y)/y.shape[0]
 
 
-def L3(X_input, y_input):
+def L3(X, y):
     """
     Calculates the Non linearity of linear classifier (L3) metric.
 
     .. math::
 
-        C1=-\\frac{1}{log(n_c)}\sum_{i=1}^{n_c}p_{c_i}log(p_{c_i})
+        L3=\\frac{1}{l}\sum^{l}_{i=1}I(h_T(x'_i) \\neq y'_i)
 
-    :type X_input: array-like, shape (n_samples, n_features)
-    :param X_input: Dataset.
-    :type y_input: array-like, shape (n_samples)
-    :param y_input: Labels.
+    :type X: array-like, shape (n_samples, n_features)
+    :param X: Dataset.
+    :type y: array-like, shape (n_samples)
+    :param y: Labels.
 
     :rtype: float
     :returns: L3 score.
     """
     
-    X = np.copy(X_input)
-    y = np.copy(y_input)
+    X = np.copy(X)
+    y = np.copy(y)
 
     pairs_0 = np.array([np.random.choice(np.argwhere(y==0).flatten(), 2, replace=False) for i in range(np.sum(y==0))])
     pairs_1 = np.array([np.random.choice(np.argwhere(y==1).flatten(), 2, replace=False) for i in range(np.sum(y==1))])

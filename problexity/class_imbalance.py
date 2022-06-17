@@ -1,10 +1,10 @@
 """
-Class imbalance measures.
+Class imbalance measures
 """
 
 import numpy as np
 
-def C1(X_input, y_input):
+def C1(X, y):
     """
     Calculates the Entropy of Class Proportions (C1) metric.
 
@@ -12,15 +12,15 @@ def C1(X_input, y_input):
 
         C1=-\\frac{1}{log(n_c)}\sum_{i=1}^{n_c}p_{c_i}log(p_{c_i})
 
-    :type X_input: array-like, shape (n_samples, n_features)
-    :param X_input: Dataset.
-    :type y_input: array-like, shape (n_samples)
-    :param y_input: Labels.
+    :type X: array-like, shape (n_samples, n_features)
+    :param X: Dataset.
+    :type y: array-like, shape (n_samples)
+    :param y: Labels.
 
     :rtype: float
     :returns: C1 score.
     """
-    y = np.copy(y_input)
+    y = np.copy(y)
 
     classes = np.unique(y).shape[0]
     p = np.zeros((classes))
@@ -29,7 +29,7 @@ def C1(X_input, y_input):
 
     return 1+(1/np.log(classes))*np.sum(p*np.log(p))
 
-def C2(X_input, y_input):
+def C2(X, y):
     """
     Calculates the Imbalance Ratio (C2) metric.
 
@@ -37,15 +37,15 @@ def C2(X_input, y_input):
 
         C2=-1-\\frac{1}{IR}
 
-    :type X_input: array-like, shape (n_samples, n_features)
-    :param X_input: Dataset.
-    :type y_input: array-like, shape (n_samples)
-    :param y_input: Labels.
+    :type X: array-like, shape (n_samples, n_features)
+    :param X: Dataset.
+    :type y: array-like, shape (n_samples)
+    :param y: Labels.
 
     :rtype: float
     :returns: C2 score.
     """
-    y = np.copy(y_input)
+    y = np.copy(y)
 
     classes = np.unique(y).shape[0]
     p = np.zeros((classes))

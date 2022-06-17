@@ -25,57 +25,57 @@ def _get_graph(X, y):
     return edges
 
 
-def density(X_input, y_input):
+def density(X, y):
     """
     Calculates the Density metric.
 
     .. math::
 
-        C1=-\\frac{1}{log(n_c)}\sum_{i=1}^{n_c}p_{c_i}log(p_{c_i})
+        Density =1 - \\frac{2|E|}{n(n-1)}
 
-    :type X_input: array-like, shape (n_samples, n_features)
-    :param X_input: Dataset.
-    :type y_input: array-like, shape (n_samples)
-    :param y_input: Labels.
+    :type X: array-like, shape (n_samples, n_features)
+    :param X: Dataset.
+    :type y: array-like, shape (n_samples)
+    :param y: Labels.
 
     :rtype: float
     :returns: Density score.
     """
     
-    X = np.copy(X_input)
-    y = np.copy(y_input)
+    X = np.copy(X)
+    y = np.copy(y)
     
     edges = _get_graph(X, y)
 
     return 1-(np.sum(edges)/(y.shape[0]*(y.shape[0]-1)))
 
 
-def clsCoef(X_input, y_input):
+def clsCoef(X, y):
     """
     Calculates the Clustering Coefficient metric.
 
     .. math::
 
-        C1=-\\frac{1}{log(n_c)}\sum_{i=1}^{n_c}p_{c_i}log(p_{c_i})
+        ClsCoef=1-\\frac{1}{n}\sum^{n}_{i=1}\\frac{2|e_{jk} : v_j, v_k \in N_i|}{k_i(k_i-1)}
 
-    :type X_input: array-like, shape (n_samples, n_features)
-    :param X_input: Dataset.
-    :type y_input: array-like, shape (n_samples)
-    :param y_input: Labels.
+    :type X: array-like, shape (n_samples, n_features)
+    :param X: Dataset.
+    :type y: array-like, shape (n_samples)
+    :param y: Labels.
 
     :rtype: float
     :returns: Clustering Coefficient score.
     """
     
-    X = np.copy(X_input)
-    y = np.copy(y_input)
+    X = np.copy(X)
+    y = np.copy(y)
     
     edges = _get_graph(X, y)
 
     sum_neighbours = np.sum(edges, axis=0)
     sum_conncetions = np.zeros(y.shape[0])
 
-    #edges between it's neighbours
+    #edges between its neighbours
     for i, item_egdes in enumerate(edges):
         neighbours = np.argwhere(item_egdes==1).flatten()
 
@@ -89,25 +89,25 @@ def clsCoef(X_input, y_input):
 
     return 1 - (np.sum(sum_conncetions/(sum_neighbours*(sum_neighbours-1))))/y.shape[0]
 
-def hubs(X_input, y_input):
+def hubs(X, y):
     """
     Calculates the Hubs metric.
 
     .. math::
 
-        C1=-\\frac{1}{log(n_c)}\sum_{i=1}^{n_c}p_{c_i}log(p_{c_i})
+        Hubs=1-\\frac{1}{n}\sum^{n}_{i=1}hub(v_i)
 
-    :type X_input: array-like, shape (n_samples, n_features)
-    :param X_input: Dataset.
-    :type y_input: array-like, shape (n_samples)
-    :param y_input: Labels.
+    :type X: array-like, shape (n_samples, n_features)
+    :param X: Dataset.
+    :type y: array-like, shape (n_samples)
+    :param y: Labels.
 
     :rtype: float
     :returns: Hubs score.
     """
     
-    X = np.copy(X_input)
-    y = np.copy(y_input)
+    X = np.copy(X)
+    y = np.copy(y)
     
     edges = _get_graph(X, y)
 

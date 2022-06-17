@@ -3,25 +3,25 @@ Feature-based measures
 """
 import numpy as np
 
-def F1(X_input, y_input):
+def F1(X, y):
     """
     Calculates the Maximum Fisher's discriminant ratio (F1) metric.
 
     .. math::
 
-        C1=-\\frac{1}{log(n_c)}\sum_{i=1}^{n_c}p_{c_i}log(p_{c_i})
+        F1=\\frac{1}{1+max^{m}_{i=1}r_{f_{i}}}
 
-    :type X_input: array-like, shape (n_samples, n_features)
-    :param X_input: Dataset.
-    :type y_input: array-like, shape (n_samples)
-    :param y_input: Labels.
+    :type X: array-like, shape (n_samples, n_features)
+    :param X: Dataset.
+    :type y: array-like, shape (n_samples)
+    :param y: Labels.
 
     :rtype: float
     :returns: F1 score.
     """
     
-    X = np.copy(X_input)
-    y = np.copy(y_input)
+    X = np.copy(X)
+    y = np.copy(y)
 
     X_0 = X[y==0]
     X_1 = X[y==1]
@@ -41,25 +41,25 @@ def F1(X_input, y_input):
 
     return 1 / (1+np.max(r_all))
 
-def F1v(X_input, y_input):
+def F1v(X, y):
     """
     Calculates the Directional vector maximum Fisher's discriminant ratio (F1v) metric.
 
     .. math::
 
-        C1=-\\frac{1}{log(n_c)}\sum_{i=1}^{n_c}p_{c_i}log(p_{c_i})
+        F1v=\\frac{1}{1+dF}
 
-    :type X_input: array-like, shape (n_samples, n_features)
-    :param X_input: Dataset.
-    :type y_input: array-like, shape (n_samples)
-    :param y_input: Labels.
+    :type X: array-like, shape (n_samples, n_features)
+    :param X: Dataset.
+    :type y: array-like, shape (n_samples)
+    :param y: Labels.
 
     :rtype: float
     :returns: F1v score.
     """
     
-    X = np.copy(X_input)
-    y = np.copy(y_input)
+    X = np.copy(X)
+    y = np.copy(y)
 
     X_0 = X[y==0]
     X_1 = X[y==1]
@@ -96,25 +96,25 @@ def F1v(X_input, y_input):
     return 1/(1+df)
 
 
-def F2(X_input, y_input):
+def F2(X, y):
     """
     Calculates the Volume of overlapping region (F2) metric.
 
     .. math::
 
-        C1=-\\frac{1}{log(n_c)}\sum_{i=1}^{n_c}p_{c_i}log(p_{c_i})
+        F2=\prod^{m}_{i}{\\frac{overlap(f_i)}{range(f_i)}}
 
-    :type X_input: array-like, shape (n_samples, n_features)
-    :param X_input: Dataset.
-    :type y_input: array-like, shape (n_samples)
-    :param y_input: Labels.
+    :type X: array-like, shape (n_samples, n_features)
+    :param X: Dataset.
+    :type y: array-like, shape (n_samples)
+    :param y: Labels.
 
     :rtype: float
     :returns: F2 score.
     """
 
-    X = np.copy(X_input)
-    y = np.copy(y_input)
+    X = np.copy(X)
+    y = np.copy(y)
 
     X_0 = X[y==0]
     X_1 = X[y==1]
@@ -129,26 +129,25 @@ def F2(X_input, y_input):
 
     return np.product(f_overlap/f_range)
 
-def F3(X_input, y_input):
+def F3(X, y):
     """
     Calculates the Maximum individual feature efficiency (F3) metric.
 
     .. math::
 
-        C1=-\\frac{1}{log(n_c)}\sum_{i=1}^{n_c}p_{c_i}log(p_{c_i})
+        F3=\min^{m}_{i=1}{\\frac{n_o(f_i)}{n}}
 
-    :type X_input: array-like, shape (n_samples, n_features)
-    :param X_input: Dataset.
-    :type y_input: array-like, shape (n_samples)
-    :param y_input: Labels.
+    :type X: array-like, shape (n_samples, n_features)
+    :param X: Dataset.
+    :type y: array-like, shape (n_samples)
+    :param y: Labels.
 
     :rtype: float
     :returns: F3 score.
     """
 
-    
-    X = np.copy(X_input)
-    y = np.copy(y_input)
+    X = np.copy(X)
+    y = np.copy(y)
 
     X_0 = X[y==0]
     X_1 = X[y==1]
@@ -164,25 +163,25 @@ def F3(X_input, y_input):
     return np.min(n/X.shape[0])
 
 
-def F4(X_input, y_input):
+def F4(X, y):
     """
     Calculates the Collective feature efficiency (F4) metric.
 
     .. math::
 
-        C1=-\\frac{1}{log(n_c)}\sum_{i=1}^{n_c}p_{c_i}log(p_{c_i})
+        F4=\\frac{n_o(f_{min}(T_l))}{n}
 
-    :type X_input: array-like, shape (n_samples, n_features)
-    :param X_input: Dataset.
-    :type y_input: array-like, shape (n_samples)
-    :param y_input: Labels.
+    :type X: array-like, shape (n_samples, n_features)
+    :param X: Dataset.
+    :type y: array-like, shape (n_samples)
+    :param y: Labels.
 
     :rtype: float
     :returns: F4 score.
     """
 
-    X = np.copy(X_input)
-    y = np.copy(y_input)
+    X = np.copy(X)
+    y = np.copy(y)
 
     T = np.zeros(X.shape[0]) #classified = 1, else 0 
     features_used = np.zeros(X.shape[1]) #used = 1, else 0

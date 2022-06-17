@@ -8,25 +8,25 @@ from scipy.sparse.csgraph import minimum_spanning_tree
 from sklearn.model_selection import LeaveOneOut
 from sklearn.neighbors import KNeighborsClassifier
 
-def N1(X_input, y_input):
+def N1(X, y):
     """
     Calculates the Fraction of borderline points (N1) metric.
 
     .. math::
 
-        C1=-\\frac{1}{log(n_c)}\sum_{i=1}^{n_c}p_{c_i}log(p_{c_i})
+        N1=\\frac{1}{n} \sum^{n}_{i=1}I((x_i, x_j) \in MST \wedge y_i \\neq y_j)
 
-    :type X_input: array-like, shape (n_samples, n_features)
-    :param X_input: Dataset.
-    :type y_input: array-like, shape (n_samples)
-    :param y_input: Labels.
+    :type X: array-like, shape (n_samples, n_features)
+    :param X: Dataset.
+    :type y: array-like, shape (n_samples)
+    :param y: Labels.
 
     :rtype: float
     :returns: N1 score.
     """
     
-    X = np.copy(X_input)
-    y = np.copy(y_input)
+    X = np.copy(X)
+    y = np.copy(y)
     
     dist = distance_matrix(X, X)
     graph = csr_matrix(dist)
@@ -36,25 +36,25 @@ def N1(X_input, y_input):
 
     return (np.sum(np.sum(y[coordinates], axis=1)==1)/2)/y.shape[0]
 
-def N2(X_input, y_input):    
+def N2(X, y):    
     """
     Calculates the Ratio of intra/extra class NN distance (N2) metric.
 
     .. math::
 
-        C1=-\\frac{1}{log(n_c)}\sum_{i=1}^{n_c}p_{c_i}log(p_{c_i})
+        N2=\\frac{infra\_extra}{1+infra\_extra}
 
-    :type X_input: array-like, shape (n_samples, n_features)
-    :param X_input: Dataset.
-    :type y_input: array-like, shape (n_samples)
-    :param y_input: Labels.
+    :type X: array-like, shape (n_samples, n_features)
+    :param X: Dataset.
+    :type y: array-like, shape (n_samples)
+    :param y: Labels.
 
     :rtype: float
     :returns: N2 score.
     """   
     
-    X = np.copy(X_input)
-    y = np.copy(y_input)
+    X = np.copy(X)
+    y = np.copy(y)
 
     X_0 = X[y==0]
     X_1 = X[y==1]
@@ -69,25 +69,25 @@ def N2(X_input, y_input):
     return infra_extra/(1+infra_extra)
 
 
-def N3(X_input, y_input):
+def N3(X, y):
     """
     Calculates the Error rate of NN classifier (N4) metric.
 
     .. math::
 
-        C1=-\\frac{1}{log(n_c)}\sum_{i=1}^{n_c}p_{c_i}log(p_{c_i})
+        N3=\\frac{\sum^{n}_{i=1}I(NN(x_i) \\neq y_i)}{n}
 
-    :type X_input: array-like, shape (n_samples, n_features)
-    :param X_input: Dataset.
-    :type y_input: array-like, shape (n_samples)
-    :param y_input: Labels.
+    :type X: array-like, shape (n_samples, n_features)
+    :param X: Dataset.
+    :type y: array-like, shape (n_samples)
+    :param y: Labels.
 
     :rtype: float
     :returns: N3 score.
     """   
 
-    X = np.copy(X_input)
-    y = np.copy(y_input)
+    X = np.copy(X)
+    y = np.copy(y)
 
     loo = LeaveOneOut()
 
@@ -99,25 +99,25 @@ def N3(X_input, y_input):
     return 1-acc
 
 
-def N4(X_input, y_input):
+def N4(X, y):
     """
     Calculates the Nonlinearity of NN classifier (N4) metric.
 
     .. math::
 
-        C1=-\\frac{1}{log(n_c)}\sum_{i=1}^{n_c}p_{c_i}log(p_{c_i})
+        N4=\\frac{1}{l}\sum^{l}_{i=1}I(NN_T(x'_i) \\neq y'_i)
 
-    :type X_input: array-like, shape (n_samples, n_features)
-    :param X_input: Dataset.
-    :type y_input: array-like, shape (n_samples)
-    :param y_input: Labels.
+    :type X: array-like, shape (n_samples, n_features)
+    :param X: Dataset.
+    :type y: array-like, shape (n_samples)
+    :param y: Labels.
 
     :rtype: float
     :returns: N4 score.
     """   
     
-    X = np.copy(X_input)
-    y = np.copy(y_input)
+    X = np.copy(X)
+    y = np.copy(y)
 
     pairs_0 = np.array([np.random.choice(np.argwhere(y==0).flatten(), 2, replace=False) for i in range(np.sum(y==0))])
     pairs_1 = np.array([np.random.choice(np.argwhere(y==1).flatten(), 2, replace=False) for i in range(np.sum(y==1))])
@@ -136,35 +136,35 @@ def N4(X_input, y_input):
 
     return np.sum(pred!=y_new)/y_new.shape[0]
 
-def find_radius(D, i):
+def _find_radius(D, i):
     j = np.argmin(D[i])
     di = D[i, j]
     k = np.argmin(D[j])
     if i == k:
         return di/2
     else:
-        dt = find_radius(D, j)
+        dt = _find_radius(D, j)
         return di - dt
 
-def T1(X_input, y_input):
+def T1(X, y):
     """
     Calculates the Fraction of hyperspheres covering data (T1) metric.
 
     .. math::
 
-        C1=-\\frac{1}{log(n_c)}\sum_{i=1}^{n_c}p_{c_i}log(p_{c_i})
+        T1=\\frac{\#Hyperspheres(T)}{n}
 
-    :type X_input: array-like, shape (n_samples, n_features)
-    :param X_input: Dataset.
-    :type y_input: array-like, shape (n_samples)
-    :param y_input: Labels.
+    :type X: array-like, shape (n_samples, n_features)
+    :param X: Dataset.
+    :type y: array-like, shape (n_samples)
+    :param y: Labels.
 
     :rtype: float
     :returns: T1 score.
     """   
 
-    X = np.copy(X_input)
-    y = np.copy(y_input)
+    X = np.copy(X)
+    y = np.copy(y)
     
     dist = distance_matrix(X, X)
     dist_y = distance_matrix(y[:, np.newaxis], y[:, np.newaxis])
@@ -175,7 +175,7 @@ def T1(X_input, y_input):
     radiuses = np.zeros((y.shape[0]))
 
     for x_id in range(y.shape[0]):
-        radiuses[x_id] = find_radius(dist, x_id)
+        radiuses[x_id] = _find_radius(dist, x_id)
 
     #start with largest radiuses
     ordered_r = np.flip(np.argsort(radiuses))
@@ -209,25 +209,25 @@ def T1(X_input, y_input):
     
     return hyper/X.shape[0]
 
-def LSC(X_input, y_input):
+def LSC(X, y):
     """
     Calculates the Local set average cardinality (LSC) metric.
 
     .. math::
 
-        C1=-\\frac{1}{log(n_c)}\sum_{i=1}^{n_c}p_{c_i}log(p_{c_i})
+        LSC=1-\\frac{1}{n_2}\sum^{n}_{i=1} |LS(x_i)|
 
-    :type X_input: array-like, shape (n_samples, n_features)
-    :param X_input: Dataset.
-    :type y_input: array-like, shape (n_samples)
-    :param y_input: Labels.
+    :type X: array-like, shape (n_samples, n_features)
+    :param X: Dataset.
+    :type y: array-like, shape (n_samples)
+    :param y: Labels.
 
     :rtype: float
     :returns: LSC score.
     """   
 
-    X = np.copy(X_input)
-    y = np.copy(y_input)
+    X = np.copy(X)
+    y = np.copy(y)
     
     dist = distance_matrix(X, X)
     dist_y = distance_matrix(y[:, np.newaxis], y[:, np.newaxis])
