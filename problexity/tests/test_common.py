@@ -127,8 +127,8 @@ def test_ComplexityCalculator():
                         n_informative=10, n_clusters_per_class=2, n_classes=2, flip_y=0.2, 
                         class_sep=0.01, weights=[0.9, 0.1])
 
-        res[r, 0] = c.score(X_simple, y_simple)
-        res[r, 1] = c.score(X_complex, y_complex)
+        res[r, 0] = c.fit(X_simple, y_simple).score()
+        res[r, 1] = c.fit(X_complex, y_complex).score()
 
     comparison = np.mean(res, axis=0)
     assert comparison[0]<comparison[1]
