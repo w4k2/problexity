@@ -7,7 +7,7 @@ If you use ``problexity`` in a scientific publication, we would appreciate citat
 .. code-block:: python
 
     @article{komorniczak2022complexity,
-    title={problexity--open-source Python library for ...},
+    title={problexity--open-source Python library for measuring classification complexity},
     author={Komorniczak, Joanna},
     journal={arXiv preprint arXiv:XXXX.YYYYY},
     year={2022}
