@@ -83,7 +83,7 @@ class ComplexityCalculator:
         
     def fit(self, X, y):
         """
-        Fit metrics for given dataset.
+        Calculatest metrics for given dataset.
 
         :type X: array-like, shape (n_samples, n_features)
         :param X: The training input samples.
@@ -106,15 +106,36 @@ class ComplexityCalculator:
         return self
     
     def report(self, precision=3):
-        """Returns minority and majority data
+        """Returns report of problem complexity
 
-        :type X: array-like, shape (n_samples, n_features)
-        :param X: The training input samples.
-        :type y: array-like, shape  (n_samples)
-        :param y: The target values.
+        :type precision: int, optional (default=3)
+        :param precision: The rounding precision.
 
-        :rtype: tuple (array-like, shape = [n_samples, n_features], array-like, shape = [n_samples, n_features])
-        :returns: Tuple of minority and majority class samples
+        :rtype: dict
+        :returns: Dictionary with complexity report
+        
+        :Examples:
+
+        >>> from problexity import ComplexityCalculator
+        >>> from sklearn.datasets import make_classification
+        >>> X, y = make_classification()
+        >>> cc = ComplexityCalculator().fit(X, y)
+        >>> report = cc.report()
+        >>> print(report)
+        {
+            'n_samples': 100, 'n_features': 20, 'n_classes': 2, 
+            'classes': array([0, 1]), 
+            'prior_probability': array([0.5, 0.5]), 
+            'score': 0.377, 
+            'complexities': 
+            {
+                'f1': 0.316, 'f1v': 0.151, 'f2': 0.006, 'f3': 0.57, 'f4': 0.0, 
+                'l1': 0.105, 'l2': 0.1, 'l3': 0.07, 
+                'n1': 0.135, 'n2': 0.483, 'n3': 0.27, 'n4': 0.11, 't1': 1.0, 'lsc': 0.964, 
+                'density': 0.989, 'clsCoef': 0.932, 'hubs': 0.93, 
+                't2': 0.2, 't3': 0.16, 't4': 0.8, 'c1': 0.0, 'c2': 0.0
+            }
+        }
         """
         self._check_is_fitted()
         report = {
