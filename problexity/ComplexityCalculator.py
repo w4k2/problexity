@@ -21,8 +21,6 @@ class ComplexityCalculator:
     :param metrics: List of classification complexity measures used to validate a given set.
     :type ranges: dict, optional (default=all the default six groups of metrics)
     :param ranges: Configuration of radar visualisation, allowing to group metrics by color.
-    >>> C_RANGES = {'FB': 5, 'LR': 3, 'NB': 6,
-    >>>             'NE': 3, 'DM': 3, 'CI': 2}
     :type colors: list, optional (default=six-color palette)
     :param colors: List of colors assigned to groups on radar visualisation.
 
@@ -85,13 +83,15 @@ class ComplexityCalculator:
         
     def fit(self, X, y):
         """
-        Predict classes for X.
+        Fit metrics for given dataset.
 
         :type X: array-like, shape (n_samples, n_features)
         :param X: The training input samples.
+        :type y: array-like, shape (n_samples, )
+        :param y: The training input labels.
 
-        :rtype: array-like, shape (n_samples, )
-        :returns: The predicted classes.
+        :rtype: ComplexityCalculator class object
+        :returns: Self.
         """
 
         # Check is fit had been called
