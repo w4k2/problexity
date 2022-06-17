@@ -4,7 +4,7 @@ Class imbalance measures
 
 import numpy as np
 
-def C1(X, y):
+def c1(X, y):
     """
     Calculates the Entropy of Class Proportions (C1) metric.
 
@@ -29,7 +29,7 @@ def C1(X, y):
 
     return 1+(1/np.log(classes))*np.sum(p*np.log(p))
 
-def C2(X, y):
+def c2(X, y):
     """
     Calculates the Imbalance Ratio (C2) metric.
 

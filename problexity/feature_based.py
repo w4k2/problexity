@@ -3,7 +3,7 @@ Feature-based measures
 """
 import numpy as np
 
-def F1(X, y):
+def f1(X, y):
     """
     Calculates the Maximum Fisher's discriminant ratio (F1) metric.
 
@@ -43,7 +43,7 @@ def F1(X, y):
 
     return 1 / (1+np.max(r_all))
 
-def F1v(X, y):
+def f1v(X, y):
     """
     Calculates the Directional vector maximum Fisher's discriminant ratio (F1v) metric.
 
@@ -98,7 +98,7 @@ def F1v(X, y):
     return 1/(1+df)
 
 
-def F2(X, y):
+def f2(X, y):
     """
     Calculates the Volume of overlapping region (F2) metric.
 
@@ -133,7 +133,7 @@ def F2(X, y):
 
     return np.product(f_overlap/f_range)
 
-def F3(X, y):
+def f3(X, y):
     """
     Calculates the Maximum individual feature efficiency (F3) metric.
 
@@ -169,7 +169,7 @@ def F3(X, y):
     return np.min(n/X.shape[0])
 
 
-def F4(X, y):
+def f4(X, y):
     """
     Calculates the Collective feature efficiency (F4) metric.
 

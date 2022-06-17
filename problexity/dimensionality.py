@@ -4,7 +4,7 @@ Dimensionality measures
 import numpy as np
 from sklearn.decomposition import PCA
 
-def T2(X, y):
+def t2(X, y):
     """
     Calculates the Average number of features per dimension (T2) metric. 
 
@@ -25,7 +25,7 @@ def T2(X, y):
     X = np.copy(X)
     return X.shape[1]/X.shape[0]
 
-def T3(X, y):
+def t3(X, y):
     """
     Calculates the Average number of PCA dimensions per points (T3) metric.
 
@@ -51,10 +51,10 @@ def T3(X, y):
 
     return X_new.shape[1]/X.shape[0]
 
-def T4(X, y):
+def t4(X, y):
     """
     Calculates the Ration of the PCA dimension to the original dimension (T4) metric.
-    
+
     To obtain this measure, the number of PCA components needed to represent 95% of data variability is divided by the original number of dimensions. This measure describes the proportion of relevant dimensions in the dataset.
 
     .. math::

@@ -8,7 +8,7 @@ from scipy.sparse.csgraph import minimum_spanning_tree
 from sklearn.model_selection import LeaveOneOut
 from sklearn.neighbors import KNeighborsClassifier
 
-def N1(X, y):
+def n1(X, y):
     """
     Calculates the Fraction of borderline points (N1) metric.
 
@@ -38,7 +38,7 @@ def N1(X, y):
 
     return (np.sum(np.sum(y[coordinates], axis=1)==1)/2)/y.shape[0]
 
-def N2(X, y):    
+def n2(X, y):    
     """
     Calculates the Ratio of intra/extra class NN distance (N2) metric.
 
@@ -73,7 +73,7 @@ def N2(X, y):
     return infra_extra/(1+infra_extra)
 
 
-def N3(X, y):
+def n3(X, y):
     """
     Calculates the Error rate of NN classifier (N4) metric.
 
@@ -105,7 +105,7 @@ def N3(X, y):
     return 1-acc
 
 
-def N4(X, y):
+def n4(X, y):
     """
     Calculates the Nonlinearity of NN classifier (N4) metric.
 
@@ -154,7 +154,7 @@ def _find_radius(D, i):
         dt = _find_radius(D, j)
         return di - dt
 
-def T1(X, y):
+def t1(X, y):
     """
     Calculates the Fraction of hyperspheres covering data (T1) metric.
 
@@ -219,7 +219,7 @@ def T1(X, y):
     
     return hyper/X.shape[0]
 
-def LSC(X, y):
+def lsc(X, y):
     """
     Calculates the Local set average cardinality (LSC) metric.
 

@@ -4,7 +4,7 @@ Linearity measures
 import numpy as np
 from sklearn.svm import LinearSVC
 
-def L1(X, y):
+def l1(X, y):
     """
     Calculates the Sum of the error distance by linear programming (L1) metric.
 
@@ -36,7 +36,7 @@ def L1(X, y):
     sed = loss/y.shape[0]
     return sed/(1+sed)
 
-def L2(X, y):
+def l2(X, y):
     """
     Calculates the Error rate of linear classifier (L2) metric.
 
@@ -64,7 +64,7 @@ def L2(X, y):
     return np.sum(pred!=y)/y.shape[0]
 
 
-def L3(X, y):
+def l3(X, y):
     """
     Calculates the Non linearity of linear classifier (L3) metric.
 

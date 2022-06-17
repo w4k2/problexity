@@ -26,59 +26,59 @@ def _get_comparison(metric):
     return compare
 
 def test_F1():
-    metric = px.F1
+    metric = px.f1
     assert _get_comparison(metric)>0.5
 
 def test_F1v():
-    metric = px.F1v
+    metric = px.f1v
     assert _get_comparison(metric)>0.5
 
 def test_F2():
-    metric = px.F2
+    metric = px.f2
     assert _get_comparison(metric)>0.5
 
 def test_F3():
-    metric = px.F3
+    metric = px.f3
     assert _get_comparison(metric)>0.5
 
 def test_F4():
-    metric = px.F4
+    metric = px.f4
     assert _get_comparison(metric)>0.5
 
 def test_L1():
-    metric = px.L1
+    metric = px.l1
     assert _get_comparison(metric)>0.5
 
 def test_L2():
-    metric = px.L2
+    metric = px.l2
     assert _get_comparison(metric)>0.5
 
 def test_L3():
-    metric = px.L3
+    metric = px.l3
     assert _get_comparison(metric)>0.5
 
 def test_N1():
-    metric = px.N1
+    metric = px.n1
     assert _get_comparison(metric)>0.5
 
 def test_N2():
-    metric = px.N2
+    metric = px.n2
     assert _get_comparison(metric)>0.5
 
 def test_N3():
-    metric = px.N3
+    metric = px.n3
     assert _get_comparison(metric)>0.5
 
 def test_N4():
-    metric = px.N4
+    metric = px.n4
     assert _get_comparison(metric)>0.5
 
 def test_T1():
-    metric = px.T1
+    metric = px.t1
     assert _get_comparison(metric)>0.5
 
 def test_LSC():
-    metric = px.LSC
+    metric = px.lsc
     assert _get_comparison(metric)>0.5
 
 def test_density():
@@ -94,23 +94,23 @@ def test_hubs():
     assert _get_comparison(metric)>0.5
 
 def test_T2():
-    metric = px.T2
+    metric = px.t2
     assert _get_comparison(metric)>0.5
 
 def test_T3():
-    metric = px.T3
+    metric = px.t3
     assert _get_comparison(metric)>0.5
 
 def test_T4():
-    metric = px.T4
+    metric = px.t4
     assert _get_comparison(metric)>0.5
 
 def test_C1():
-    metric = px.C1
+    metric = px.c1
     assert _get_comparison(metric)>0.5
 
 def test_C2():
-    metric = px.C2
+    metric = px.c2
     assert _get_comparison(metric)>0.5
 
 def test_ComplexityCalculator():
