@@ -5,7 +5,7 @@
 [![Documentation Status](https://readthedocs.org/projects/problexity/badge/?version=latest)](http://problexity.readthedocs.io)
 [![PyPI version](https://badge.fury.io/py/problexity.svg)](https://badge.fury.io/py/problexity)
 
-The `problexity` module is a ...
+The `problexity` module is an open-source python library containing the implementation of measures describing the complexity of the classification problem. The package contains a ComplexityCalculator model, allowing the calculation and visualization of problem complexity measures.
 
 ## Citation policy
 
