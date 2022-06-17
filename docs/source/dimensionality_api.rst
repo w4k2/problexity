@@ -10,7 +10,5 @@ Dimensionality Measures
   t4
 
 .. automodule:: problexity
-  t2
-  t3
-  t4
+  :members: t2, t3, t4
   :show-inheritance:
