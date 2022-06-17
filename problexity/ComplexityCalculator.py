@@ -183,6 +183,9 @@ class ComplexityCalculator:
         :param weights: Figure to draw radar on.
         :type spec: tuple, optional (default=(1,1,1)) 
         :param spec: Matplotlib subplot location.
+        
+        :rtype: object
+        :returns: Matplotlib axis object.
 
         .. image:: plots/radar.png
 
@@ -260,7 +263,7 @@ class ComplexityCalculator:
                 ax.scatter([np.mean(grv*scale)],[1], color=c, zorder=10)
                 
                 # Value label
-                ax.text(np.mean(grv*scale),1.1,
+                ax.text(np.mean(grv*scale),1.2,
                     '%s\n%.2f' % (self.cnames[aid], val),
                     color=c,
                     ha='center',
@@ -282,8 +285,10 @@ class ComplexityCalculator:
         ax.text(-.15, -.15, '%.1f' % (self.score()*100),
                 ha='center',
                 va='center',
-                fontsize=18,
+                fontsize=12,
                 color='#333')
+        
+        return ax
     
     def _check_is_fitted(self):
         if not hasattr(self, 'complexity'):
