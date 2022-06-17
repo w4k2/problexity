@@ -27,6 +27,7 @@ Welcome to problexity documentation!
    linearity_api
    neighborhood_api
    network_api
+   complexity_calculator_api
    
 .. toctree::
    :maxdepth: 2

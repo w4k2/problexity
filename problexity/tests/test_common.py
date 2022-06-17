@@ -4,13 +4,13 @@ from sklearn.datasets import make_classification
 import numpy as np
     
 def _get_comparison(metric):
-    reps = 10
+    reps = 20
     res = np.zeros((reps, 2))
 
     for r in range(reps):
         X_simple, y_simple = make_classification(n_samples=500, n_features=5, n_redundant=0, 
                         n_informative=5, n_clusters_per_class=2, n_classes=2, flip_y=0, 
-                        class_sep=3.5, weights=[0.5, 0.5])
+                        class_sep=10, weights=[0.5, 0.5])
 
         X_complex, y_complex = make_classification(n_samples=500, n_features=10, n_redundant=0, 
                         n_informative=10, n_clusters_per_class=2, n_classes=2, flip_y=0.2, 
