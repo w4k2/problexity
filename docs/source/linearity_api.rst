@@ -10,5 +10,5 @@ Linearity Measures
   l3
 
 .. automodule:: problexity
-  :members:
+  :members: l1, l2, l3
   :show-inheritance:

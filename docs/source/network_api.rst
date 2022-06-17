@@ -10,5 +10,5 @@ Network Measures
   hubs
 
 .. automodule:: problexity
-  :members:
+  :members: density, clsCoef, hubs
   :show-inheritance:

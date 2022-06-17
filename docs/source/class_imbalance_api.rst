@@ -9,5 +9,5 @@ Class Imbalance Measures
   c2
 
 .. automodule:: problexity
-  :members:
+  :members: c1, c2
   :show-inheritance:

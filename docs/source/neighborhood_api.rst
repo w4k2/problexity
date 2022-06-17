@@ -13,5 +13,5 @@ Neighborhood Measures
   lsc
 
 .. automodule:: problexity
-  :members:
+  :members: n1, n2, n3, n4, t1, lsc
   :show-inheritance:
