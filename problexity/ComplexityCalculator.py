@@ -24,32 +24,30 @@ class ComplexityCalculator:
     :type colors: list, optional (default=six-colour palette)
     :param colors: List of colors assigned to groups on radar visualisation.
 
-    :vartype ensemble_: list of classifiers
-    :var ensemble_: The collection of fitted sub-estimators.
-    :vartype classes_: array-like, shape (n_classes, )
-    :var classes_: The class labels.
-    :vartype weights_: array-like, shape (n_estimators, )
-    :var weights_: Classifier weights.
+    :vartype complexity: list
+    :var complexity: The list of all the scores acquired with metrics defined by metrics list.
+    :vartype n_samples: int
+    :var n_samples: The number of samples in the fitted dataset.
+    :vartype n_features: int
+    :var n_features: The number of features of the fitted dataset.
+    :vartype n_classes: int
+    :var n_classes: The number of classes in the fitted dataset.
+    :vartype classes: array-like, shape (n_classes, )
+    :var classes: The class labels.
+    :vartype prior_probability: array-like, shape (n_classes, )
+    :var prior_probability: The prior probability of classes.
 
     :Examples:
 
-    >>> import strlearn as sl
-    >>> from sklearn.naive_bayes import GaussianNB
-    >>> stream = sl.streams.StreamGenerator()
-    >>> clf = sl.ensembles.WAE(GaussianNB())
-    >>> ttt = sl.evaluators.TestThenTrain(
-    >>> metrics=(sl.metrics.balanced_accuracy_score))
-    >>> ttt.process(stream, clf)
-    >>> print(ttt.scores)
-    [[[0.91386218]
-      [0.93032581]
-      [0.90907219]
-      [0.90544872]
-      [0.90466186]
-      [0.91956783]
-      [0.90776942]
-      [0.92685422]
-      [0.92895186]
+    >>> from problexity import ComplexityCalculator
+    >>> from sklearn.datasets import make_classification
+    >>> X, y = make_classification()
+    >>> cc = ComplexityCalculator().fit(X, y)
+    >>> print(cc.complexity)
+    [0.3158144010174404, 0.1508882806154997, 0.005974480517635054, 0.57, 0.0, 0.10518058962953956, 0.1, 0.07, 0.135, 0.48305940839428635, 0.27, 0.11, 1.0, 0.9642, 0.9892929292929293, 0.9321428571428572, 0.9297111755529109, 0.2, 0.16, 0.8, 0.0, 0.0]
+    >>> report = cc.report()
+    >>> print(report)
+    {'n_samples': 100, 'n_features': 20, 'n_classes': 2, 'classes': array([0, 1]), 'prior_probability': array([0.5, 0.5]), 'score': 0.377, 'complexities': {'f1': 0.316, 'f1v': 0.151, 'f2': 0.006, 'f3': 0.57, 'f4': 0.0, 'l1': 0.105, 'l2': 0.1, 'l3': 0.07, 'n1': 0.135, 'n2': 0.483, 'n3': 0.27, 'n4': 0.11, 't1': 1.0, 'lsc': 0.964, 'density': 0.989, 'clsCoef': 0.932, 'hubs': 0.93, 't2': 0.2, 't3': 0.16, 't4': 0.8, 'c1': 0.0, 'c2': 0.0}}
       ...
     """
     def __init__(self, metrics=C_METRICS, colors=C_COLORS, ranges=C_RANGES):
