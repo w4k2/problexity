@@ -26,7 +26,7 @@ test-code:
 
 test-coverage:
 	rm -rf coverage .coverage
-	py.test --cov-report term-missing:skip-covered --cov=problexity problexity
+	py.test --cov-report term-missing:skip-covered --cov-report xml:coverage.xml --cov=problexity problexity
 
 test: clean test-coverage
 

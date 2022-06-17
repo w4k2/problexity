@@ -38,14 +38,22 @@ Welcome to problexity documentation!
 
 .. image:: plots/hello.gif
 
-The ``problexity`` module is a ...
+The ``problexity`` is a python library containing the implementation of metrics describing the complexity of the classification problem. The implementation was based on the publication of Lorena et al.
 
 You can read more about it in the User Guide.
 
 `Getting started <quickstart.html>`_
 ------------------------------------
 
-A brief description of the installation process and basic usage of the module in a simple experiment.
+To use the `problexity` package, it will be absolutely useful to install it. Fortunately, it is available in the PyPI repository, so you may install it using `pip`::
+
+  pip install -U problexity
+
+You can also install the module cloned from Github using the setup.py file if you have a strange, but perhaps legitimate need::
+
+  git clone https://github.com/w4k2/problexity.git
+  cd problexity
+  make install
 
 `API Documentation <api.html>`_
 -------------------------------
