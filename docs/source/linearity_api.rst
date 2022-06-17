@@ -5,9 +5,9 @@ Linearity Measures
 .. currentmodule:: problexity
 
 .. autosummary::
-  L1
-  L2
-  L3
+  l1
+  l2
+  l3
 
 .. automodule:: problexity
   :members:

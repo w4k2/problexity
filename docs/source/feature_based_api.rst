@@ -5,11 +5,11 @@ Feature-based Measures
 .. currentmodule:: problexity
 
 .. autosummary::
-  F1
-  F1v
-  F2
-  F3
-  F4
+  f1
+  f1v
+  f2
+  f3
+  f4
 
 .. automodule:: problexity
   :members:
