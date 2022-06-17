@@ -14,25 +14,15 @@ C_RANGES = {'FB': 5, 'LR': 3, 'NB': 6,
 class ComplexityCalculator:
     """
     Complexity Calculator Class.
+    
+    A class that allows to determine all or selected metrics for a given data set. The report can be returned both as a simple vector of metrics, as well as a dictionary containing all set parameters and visualization in the form of a radar.
 
-    The method was inspired by Accuracy Weighted Ensemble (AWE) algorithm to which it introduces two main modifications: (I) classifier weights depend on the individual classifier accuracies and time they have been spending in the ensemble, (II) individual classifier are chosen on the basis on the non-pairwise diversity measure.
-
-    :type base_estimator: ClassifierMixin class object
-    :param base_estimator: Classification algorithm used as a base estimator.
-    :type n_estimators: integer, optional (default=10)
-    :param  n_estimators: The maximum number of estimators trained using consecutive data chunks and maintained in the ensemble.
-    :type theta: float, optional (default=0.1)
-    :param theta: Threshold for weight calculation method and aging procedure control.
-    :type post_pruning: boolean, optional (default=False)
-    :param post_pruning: Whether the pruning is conducted before or after adding the classifier.
-    :type pruning_criterion: string, optional (default='accuracy')
-    :param pruning_criterion: Selection of pruning criterion.
-    :type weight_calculation_method: string, optional (default='kuncheva')
-    :param weight_calculation_method: same_for_each, proportional_to_accuracy, kuncheva, pta_related_to_whole, bell_curve,
-    :type aging_method: string, optional (default='weights_proportional')
-    :param aging_method: weights_proportional, constant, gaussian.
-    :type rejuvenation_power: float, optional (default=0.0)
-    :param rejuvenation_power: Rejuvenation dynamics control of classifiers with high prediction accuracy.
+    :type metrics: list of functions, optional (default=all the metrics avalable in problexity)
+    :param metrics: Classification complexity measures used to validate a given set.
+    :type ranges: dictionary, optional (default=all the default six groups of metrics)
+    :param ranges: Configuration of radar visualisation, allowing to group metrics by color.
+    :type colors: list, optional (default=six-colour palette)
+    :param colors: List of colors assigned to groups on radar visualisation.
 
     :vartype ensemble_: list of classifiers
     :var ensemble_: The collection of fitted sub-estimators.
