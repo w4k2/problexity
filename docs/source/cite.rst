@@ -8,7 +8,7 @@ If you use ``problexity`` in a scientific publication, we would appreciate citat
 
     @article{komorniczak2022complexity,
     title={problexity--open-source Python library for measuring classification complexity},
-    author={Komorniczak, Joanna},
+    author={Komorniczak, Joanna and Wojciechowski, Szymon and Ksieniewicz, Pawel},
     journal={arXiv preprint arXiv:XXXX.YYYYY},
     year={2022}
     }
