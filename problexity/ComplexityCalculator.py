@@ -12,19 +12,6 @@ C_COLORS = ['#FD0100', '#F76915', '#EEDE04', '#A0D636', '#2FA236', '#333ED4']
 C_RANGES = {'FB': 5, 'LR': 3, 'NB': 6,
             'NE': 3, 'DM': 3, 'CI': 2}
 class ComplexityCalculator:
-    def __init__(self, metrics=[F1, F1v, F2, F3, F4, L1, L2, L3, N1, N2, N3, N4, T1, LSC, density, clsCoef, hubs, T2, T3, T4, C1, C2]):
-        self.metrics = metrics
-
-    def calculate(self, X, y):
-        self.complexity = []
-        for m in self.metrics:
-            self.complexity.append(m(X, y))
-        return self.complexity
-
-    def score(self, X, y):
-        return np.mean(self.calculate(X, y))
-
-class CC:
     def __init__(self, metrics=C_METRICS, colors=C_COLORS, ranges=C_RANGES):
         # Initlialize configuration
         self.metrics = metrics
@@ -64,7 +51,6 @@ class CC:
             'complexities': {}
         }
         for metric, score in zip(self.metrics, self.complexity):
-            print(metric.__name__, score)
             report['complexities'].update({
                 metric.__name__: np.around(score,precision)
             })
@@ -110,9 +96,6 @@ class CC:
             c = self.colors[ridx]
             
             v = self.complexity[count:count+l]
-            #angle = angles[index:index+l]
-
-            print(rname, l, c, count, index, v)
             
             # Iterate cv up
             count += l
@@ -121,14 +104,11 @@ class CC:
             # Iterate leading angle
             g_a, g_b = g_angles[ridx], g_angles[ridx+1]
             g_r = np.linspace(g_a, g_b, l+1)
-            
-            print('|', g_r)
-            
+                        
             # Iterate metrics
             for vidx, val in enumerate(v):
                 # Clip value to range
                 cval = np.clip(val, 0, 1)
-                print('\t', vidx, val, g_r[vidx:vidx+2])
                 grv = g_r[vidx:vidx+2]
                 
                 # Plot metric region
