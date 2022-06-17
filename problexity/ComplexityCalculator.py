@@ -91,7 +91,7 @@ class ComplexityCalculator:
         :param y: The training input labels.
 
         :rtype: ComplexityCalculator class object
-        :returns: Self.
+        :returns: ComplexityCalculator class object.
         """
 
         # Check is fit had been called
@@ -154,6 +154,14 @@ class ComplexityCalculator:
         return report
 
     def score(self, weights=None):
+        """Returns integrated score of problem complexity
+
+        :type weights: array-like, optional (default=None), shape (n_metrics) 
+        :param weights: Optional weights of metrics.
+
+        :rtype: float
+        :returns: Single score for integrated metrics
+        """
         self._check_is_fitted()  
         if weights is not None:
             # Check length of weights vector
@@ -169,6 +177,16 @@ class ComplexityCalculator:
             return np.mean(self.complexity)
        
     def plot(self, figure, spec=(1,1,1)):
+        """Returns integrated score of problem complexity
+
+        :type weights: matplotlib figure object 
+        :param weights: Figure to draw radar on.
+        :type spec: tuple, optional (default=(1,1,1)) 
+        :param spec: Matplotlib subplot location.
+
+        .. image:: plots/radar.png
+
+        """
         # Establish location
         ax = figure.add_subplot(*spec, projection='polar') 
         
@@ -185,7 +203,7 @@ class ComplexityCalculator:
         s_ticks = np.linspace(0,1,9)
         
         # Select scale
-        scale = .75
+        scale = 1.
         
         # Iterate groups
         for ridx, rname in enumerate(self.ranges):
