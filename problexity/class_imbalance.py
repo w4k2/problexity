@@ -10,7 +10,7 @@ def C1(X, y):
 
     .. math::
 
-        C1=-\\frac{1}{log(n_c)}\sum_{i=1}^{n_c}p_{c_i}log(p_{c_i})
+        C1=1+\\frac{1}{log(n_c)}\sum^{n_c}_{i=1}p_{c_{i}}log(p_{c_{i}})
 
     :type X: array-like, shape (n_samples, n_features)
     :param X: Dataset.
@@ -18,7 +18,7 @@ def C1(X, y):
     :param y: Labels.
 
     :rtype: float
-    :returns: C1 score.
+    :returns: C1 score
     """
     y = np.copy(y)
 
@@ -43,7 +43,7 @@ def C2(X, y):
     :param y: Labels.
 
     :rtype: float
-    :returns: C2 score.
+    :returns: C2 score
     """
     y = np.copy(y)
 

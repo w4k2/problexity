@@ -6,7 +6,8 @@ from sklearn.decomposition import PCA
 
 def T2(X, y):
     """
-    Calculates the Average number of features per dimension (T2) metric.
+    Calculates the Average number of features per dimension (T2) metric. 
+    To obtaint this measure, the number of dimensions describing the dataset is divided by the number of instances.
 
     .. math::
 
@@ -18,7 +19,7 @@ def T2(X, y):
     :param y: Labels.
 
     :rtype: float
-    :returns: T2 score.
+    :returns: T2 score
     """
     X = np.copy(X)
     return X.shape[1]/X.shape[0]
@@ -26,6 +27,7 @@ def T2(X, y):
 def T3(X, y):
     """
     Calculates the Average number of PCA dimensions per points (T3) metric.
+    To obtain this measure, first, the number of PCA components needed to represent 95% of data variability is calculated. Then, the value is divided by the instance number in the dataset.
 
     .. math::
 
@@ -37,7 +39,7 @@ def T3(X, y):
     :param y: Labels.
 
     :rtype: float
-    :returns: T3 score.
+    :returns: T3 score
     """
     X = np.copy(X)
     y = np.copy(y)
@@ -50,6 +52,7 @@ def T3(X, y):
 def T4(X, y):
     """
     Calculates the Ration of the PCA dimension to the original dimension (T4) metric.
+    To obtain this measure, the number of PCA components needed to represent 95% of data variability is divided by the original number of dimensions. This measure describes the proportion of relevant dimensions in the dataset.
 
     .. math::
 
@@ -61,7 +64,7 @@ def T4(X, y):
     :param y: Labels.
 
     :rtype: float
-    :returns: T4 score.
+    :returns: T4 score
     """
     X = np.copy(X)
     y = np.copy(y)
