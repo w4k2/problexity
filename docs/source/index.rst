@@ -36,7 +36,7 @@ Welcome to problexity documentation!
    about
    cite
 
-.. image:: plots/hello.gif
+.. image:: plots/radars.gif
 
 The ``problexity`` is a python library containing the implementation of metrics describing the complexity of the classification problem. The implementation was based on the publication of Lorena et al.
 
