@@ -14,9 +14,9 @@ def T2(X, y):
         T2=\\frac{m}{n}
 
     :type X: array-like, shape (n_samples, n_features)
-    :param X: Dataset.
+    :param X: Dataset
     :type y: array-like, shape (n_samples)
-    :param y: Labels.
+    :param y: Labels
 
     :rtype: float
     :returns: T2 score
@@ -34,9 +34,9 @@ def T3(X, y):
         T3=\\frac{m'}{n}
 
     :type X: array-like, shape (n_samples, n_features)
-    :param X: Dataset.
+    :param X: Dataset
     :type y: array-like, shape (n_samples)
-    :param y: Labels.
+    :param y: Labels
 
     :rtype: float
     :returns: T3 score
@@ -59,9 +59,9 @@ def T4(X, y):
         T4=\\frac{m'}{m}
 
     :type X: array-like, shape (n_samples, n_features)
-    :param X: Dataset.
+    :param X: Dataset
     :type y: array-like, shape (n_samples)
-    :param y: Labels.
+    :param y: Labels
 
     :rtype: float
     :returns: T4 score

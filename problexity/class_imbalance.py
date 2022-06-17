@@ -13,9 +13,9 @@ def C1(X, y):
         C1=1+\\frac{1}{log(n_c)}\sum^{n_c}_{i=1}p_{c_{i}}log(p_{c_{i}})
 
     :type X: array-like, shape (n_samples, n_features)
-    :param X: Dataset.
+    :param X: Dataset
     :type y: array-like, shape (n_samples)
-    :param y: Labels.
+    :param y: Labels
 
     :rtype: float
     :returns: C1 score
@@ -35,12 +35,12 @@ def C2(X, y):
 
     .. math::
 
-        C2=-1-\\frac{1}{IR}
+        C2=1-\\frac{1}{IR}
 
     :type X: array-like, shape (n_samples, n_features)
-    :param X: Dataset.
+    :param X: Dataset
     :type y: array-like, shape (n_samples)
-    :param y: Labels.
+    :param y: Labels
 
     :rtype: float
     :returns: C2 score
