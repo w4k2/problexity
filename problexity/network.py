@@ -33,17 +33,19 @@ def density(X, y):
     """
     Calculates the Density metric.
 
+    Generates an epsilon-Nearest Neighbours graph. The epsilon value is set to 0.15. The edges are selected based on the Gower distance between samples, normalized to the range between 0 and 1. Edges between instances of distinct classes are removed. The measure calculates the number of edges in the final graph divided by the total possible number of edges.
+    
     .. math::
 
         Density =1 - \\frac{2|E|}{n(n-1)}
 
     :type X: array-like, shape (n_samples, n_features)
-    :param X: Dataset.
+    :param X: Dataset
     :type y: array-like, shape (n_samples)
-    :param y: Labels.
+    :param y: Labels
 
     :rtype: float
-    :returns: Density score.
+    :returns: Density score
     """
     
     X = np.copy(X)
@@ -58,17 +60,19 @@ def clsCoef(X, y):
     """
     Calculates the Clustering Coefficient metric.
 
+    Generates an epsilon-Nearest Neighbours graph. The epsilon value is set to 0.15. The edges are selected based on the Gower distance between samples, normalized to the range between 0 and 1. Edges between instances of distinct classes are removed. The neighborhood of each vertex is calculated – the instances directly connected to it. Then, the number of edges between the sample's neighbors is calculated and divided by the maximum possible number of edges between them. The final measure is calculated based on the neighborhood of each point.
+    
     .. math::
 
         ClsCoef=1-\\frac{1}{n}\sum^{n}_{i=1}\\frac{2|e_{jk} : v_j, v_k \in N_i|}{k_i(k_i-1)}
 
     :type X: array-like, shape (n_samples, n_features)
-    :param X: Dataset.
+    :param X: Dataset
     :type y: array-like, shape (n_samples)
-    :param y: Labels.
+    :param y: Labels
 
     :rtype: float
-    :returns: Clustering Coefficient score.
+    :returns: Clustering Coefficient score
     """
     
     X = np.copy(X)
@@ -97,17 +101,19 @@ def hubs(X, y):
     """
     Calculates the Hubs metric.
 
+    Generates an epsilon-Nearest Neighbours graph. The epsilon value is set to 0.15. The edges are selected based on the Gower distance between samples, normalized to the range between 0 and 1. Edges between instances of distinct classes are removed. The neighborhood of each vertex is obtained – the instances directly connected to it. The measure scores each sample by the number of connections to neighbors, weighted by the number of connections the neighbors have.
+
     .. math::
 
         Hubs=1-\\frac{1}{n}\sum^{n}_{i=1}hub(v_i)
 
     :type X: array-like, shape (n_samples, n_features)
-    :param X: Dataset.
+    :param X: Dataset
     :type y: array-like, shape (n_samples)
-    :param y: Labels.
+    :param y: Labels
 
     :rtype: float
-    :returns: Hubs score.
+    :returns: Hubs score
     """
     
     X = np.copy(X)

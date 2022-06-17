@@ -19,7 +19,7 @@ def f1(X, y):
     :param y: Labels
 
     :rtype: float
-    :returns: F1 score.
+    :returns: F1 score
     """
     
     X = np.copy(X)
