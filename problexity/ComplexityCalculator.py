@@ -17,11 +17,13 @@ class ComplexityCalculator:
     
     A class that allows to determine all or selected metrics for a given data set. The report can be returned both as a simple vector of metrics, as well as a dictionary containing all set parameters and visualization in the form of a radar.
 
-    :type metrics: list of functions, optional (default=all the metrics avalable in problexity)
-    :param metrics: Classification complexity measures used to validate a given set.
-    :type ranges: dictionary, optional (default=all the default six groups of metrics)
+    :type metrics: list, optional (default=all the metrics avalable in problexity)
+    :param metrics: List of classification complexity measures used to validate a given set.
+    :type ranges: dict, optional (default=all the default six groups of metrics)
     :param ranges: Configuration of radar visualisation, allowing to group metrics by color.
-    :type colors: list, optional (default=six-colour palette)
+    >>> C_RANGES = {'FB': 5, 'LR': 3, 'NB': 6,
+    >>>             'NE': 3, 'DM': 3, 'CI': 2}
+    :type colors: list, optional (default=six-color palette)
     :param colors: List of colors assigned to groups on radar visualisation.
 
     :vartype complexity: list
@@ -44,11 +46,26 @@ class ComplexityCalculator:
     >>> X, y = make_classification()
     >>> cc = ComplexityCalculator().fit(X, y)
     >>> print(cc.complexity)
-    [0.3158144010174404, 0.1508882806154997, 0.005974480517635054, 0.57, 0.0, 0.10518058962953956, 0.1, 0.07, 0.135, 0.48305940839428635, 0.27, 0.11, 1.0, 0.9642, 0.9892929292929293, 0.9321428571428572, 0.9297111755529109, 0.2, 0.16, 0.8, 0.0, 0.0]
+    [0.3158144010174404, 0.1508882806154997, 0.005974480517635054, 0.57, 0.0, 
+     0.10518058962953956, 0.1, 0.07, 0.135, 0.48305940839428635, 0.27, 0.11, 
+     1.0, 0.9642, 0.9892929292929293, 0.9321428571428572, 0.9297111755529109, 
+     0.2, 0.16, 0.8, 0.0, 0.0]
     >>> report = cc.report()
     >>> print(report)
-    {'n_samples': 100, 'n_features': 20, 'n_classes': 2, 'classes': array([0, 1]), 'prior_probability': array([0.5, 0.5]), 'score': 0.377, 'complexities': {'f1': 0.316, 'f1v': 0.151, 'f2': 0.006, 'f3': 0.57, 'f4': 0.0, 'l1': 0.105, 'l2': 0.1, 'l3': 0.07, 'n1': 0.135, 'n2': 0.483, 'n3': 0.27, 'n4': 0.11, 't1': 1.0, 'lsc': 0.964, 'density': 0.989, 'clsCoef': 0.932, 'hubs': 0.93, 't2': 0.2, 't3': 0.16, 't4': 0.8, 'c1': 0.0, 'c2': 0.0}}
-      ...
+    {
+        'n_samples': 100, 'n_features': 20, 'n_classes': 2, 
+        'classes': array([0, 1]), 
+        'prior_probability': array([0.5, 0.5]), 
+        'score': 0.377, 
+        'complexities': 
+        {
+            'f1': 0.316, 'f1v': 0.151, 'f2': 0.006, 'f3': 0.57, 'f4': 0.0, 
+            'l1': 0.105, 'l2': 0.1, 'l3': 0.07, 
+            'n1': 0.135, 'n2': 0.483, 'n3': 0.27, 'n4': 0.11, 't1': 1.0, 'lsc': 0.964, 
+            'density': 0.989, 'clsCoef': 0.932, 'hubs': 0.93, 
+            't2': 0.2, 't3': 0.16, 't4': 0.8, 'c1': 0.0, 'c2': 0.0
+        }
+    }
     """
     def __init__(self, metrics=C_METRICS, colors=C_COLORS, ranges=C_RANGES):
         # Initlialize configuration
