@@ -4,6 +4,9 @@ import gower
 from igraph import Graph
 
 def _get_graph(X, y):
+    X = np.copy(X)
+    y = np.copy(y)
+
     epsilon= 0.15
     dist = gower.gower_matrix(X)
 
@@ -22,6 +25,7 @@ def _get_graph(X, y):
     dist_y = distance_matrix(y[:, np.newaxis], y[:, np.newaxis])
     other_classes = np.argwhere(dist_y==1)
     edges[other_classes[:,0], other_classes[:,1]] = 0
+
     return edges
 
 

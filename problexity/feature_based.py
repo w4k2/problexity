@@ -7,14 +7,16 @@ def F1(X, y):
     """
     Calculates the Maximum Fisher's discriminant ratio (F1) metric.
 
+    Measure describes the overlap of feature values in each class.
+
     .. math::
 
         F1=\\frac{1}{1+max^{m}_{i=1}r_{f_{i}}}
 
     :type X: array-like, shape (n_samples, n_features)
-    :param X: Dataset.
+    :param X: Dataset
     :type y: array-like, shape (n_samples)
-    :param y: Labels.
+    :param y: Labels
 
     :rtype: float
     :returns: F1 score.
@@ -50,12 +52,12 @@ def F1v(X, y):
         F1v=\\frac{1}{1+dF}
 
     :type X: array-like, shape (n_samples, n_features)
-    :param X: Dataset.
+    :param X: Dataset
     :type y: array-like, shape (n_samples)
-    :param y: Labels.
+    :param y: Labels
 
     :rtype: float
-    :returns: F1v score.
+    :returns: F1v score
     """
     
     X = np.copy(X)
@@ -100,17 +102,19 @@ def F2(X, y):
     """
     Calculates the Volume of overlapping region (F2) metric.
 
+    Describes the overlap of the feature values within the classes. The measure is determined by the minimum and maximum values of features in the class. The overlap is then calculated and normalized by the range of values in each class.
+
     .. math::
 
         F2=\prod^{m}_{i}{\\frac{overlap(f_i)}{range(f_i)}}
 
     :type X: array-like, shape (n_samples, n_features)
-    :param X: Dataset.
+    :param X: Dataset
     :type y: array-like, shape (n_samples)
-    :param y: Labels.
+    :param y: Labels
 
     :rtype: float
-    :returns: F2 score.
+    :returns: F2 score
     """
 
     X = np.copy(X)
@@ -133,17 +137,19 @@ def F3(X, y):
     """
     Calculates the Maximum individual feature efficiency (F3) metric.
 
+    Measure describes the efficiency of each feature in the separation of classes. It considers the maximum value among all features.
+
     .. math::
 
         F3=\min^{m}_{i=1}{\\frac{n_o(f_i)}{n}}
 
     :type X: array-like, shape (n_samples, n_features)
-    :param X: Dataset.
+    :param X: Dataset
     :type y: array-like, shape (n_samples)
-    :param y: Labels.
+    :param y: Labels
 
     :rtype: float
-    :returns: F3 score.
+    :returns: F3 score
     """
 
     X = np.copy(X)
@@ -167,17 +173,19 @@ def F4(X, y):
     """
     Calculates the Collective feature efficiency (F4) metric.
 
+    The measure describes an overview of how the features work together. The instances separated by the most discriminant feature that was not used already are excluded from the further analysis. The process continues until all instances are classified or all features are used. The measure is calculated according to the number of instances in the overlapping region after all features were used and the total number of samples.
+
     .. math::
 
         F4=\\frac{n_o(f_{min}(T_l))}{n}
 
     :type X: array-like, shape (n_samples, n_features)
-    :param X: Dataset.
+    :param X: Dataset
     :type y: array-like, shape (n_samples)
-    :param y: Labels.
+    :param y: Labels
 
     :rtype: float
-    :returns: F4 score.
+    :returns: F4 score
     """
 
     X = np.copy(X)
