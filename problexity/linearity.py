@@ -86,8 +86,13 @@ def l3(X, y):
     X = np.copy(X)
     y = np.copy(y)
 
-    pairs_0 = np.array([np.random.choice(np.argwhere(y==0).flatten(), 2, replace=False) for i in range(np.sum(y==0))])
-    pairs_1 = np.array([np.random.choice(np.argwhere(y==1).flatten(), 2, replace=False) for i in range(np.sum(y==1))])
+    try:
+        pairs_0 = np.array([np.random.choice(np.argwhere(y==0).flatten(), 2, replace=False) for i in range(np.sum(y==0))])
+        pairs_1 = np.array([np.random.choice(np.argwhere(y==1).flatten(), 2, replace=False) for i in range(np.sum(y==1))])
+    except:
+        # Protect againt single class sample
+        pairs_0 = np.array([np.random.choice(np.argwhere(y==0).flatten(), 2, replace=True) for i in range(np.sum(y==0))])
+        pairs_1 = np.array([np.random.choice(np.argwhere(y==1).flatten(), 2, replace=True) for i in range(np.sum(y==1))])
 
     pairs = np.concatenate((pairs_0, pairs_1), axis=0)
     y_new = np.concatenate((np.zeros(pairs_0.shape[0]), np.ones(pairs_1.shape[0])), axis=0)

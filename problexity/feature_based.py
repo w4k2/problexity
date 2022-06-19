@@ -164,7 +164,8 @@ def f3(X, y):
     n = np.zeros((X.shape[1]))
 
     for i in range(X.shape[1]):
-        n[i] = np.sum((X[:,i]>maxmin[i]) & (X[:,i]<minmax[i]))
+        # Modifiaction to original equation: replace '>' and '<' with '>=' and '<=' to return a value of 1 when all instances overlap
+        n[i] = np.sum((X[:,i]>=maxmin[i]) & (X[:,i]<=minmax[i]))
     
     return np.min(n/X.shape[0])
 
