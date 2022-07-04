@@ -83,7 +83,7 @@ class ComplexityCalculator:
         
     def fit(self, X, y):
         """
-        Calculatest metrics for given dataset.
+        Calculates metrics for given dataset.
 
         :type X: array-like, shape (n_samples, n_features)
         :param X: The training input samples.
@@ -104,6 +104,9 @@ class ComplexityCalculator:
         # Calculate complexity
         self.complexity = [m(X, y) for m in self.metrics]
         return self
+    
+    def _metrics(self):
+        return [metric.__name__ for metric in self.metrics]
     
     def report(self, precision=3):
         """Returns report of problem complexity
