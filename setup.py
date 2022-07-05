@@ -19,7 +19,7 @@ with open(ver_file) as f:
     exec(f.read())
 
 DISTNAME = "problexity"
-DESCRIPTION = "The problexity module is a ...."
+DESCRIPTION = "The problexity module is an open-source python library containing the implementation of measures describing the complexity of the classification problem."
 MAINTAINER = "J. Komorniczak"
 MAINTAINER_EMAIL = "joanna.komorniczak@vp.pl"
 URL = "https://w4k2.github.io/problexity/"
@@ -38,7 +38,6 @@ CLASSIFIERS = [
     "Topic :: Software Development :: Libraries",
     "Topic :: Software Development :: Libraries :: Python Modules",
 ]
-
 
 setup(
     name=DISTNAME,
