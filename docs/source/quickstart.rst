@@ -39,7 +39,7 @@ The library is equipped with the `ComplexityCalculator` calculator, which serves
   # Fit model with data
   cc.fit(X,y)
 
-As the $L1$, $L2$ and $L3$ measures use the recommended `LinearSVC` implementation from the `svm` module of the `scikit-learn` package in their calculations, the warning "`ConvergenceWarning: Liblinear failed to converge, increase the number of iterations.`" may occur. It is not a problem for the metric calculation -- only indicating the lack of linear problem separability.
+As the L1, L2 and L3 measures use the recommended `LinearSVC` implementation from the `svm` module of the `scikit-learn` package in their calculations, the warning "`ConvergenceWarning: Liblinear failed to converge, increase the number of iterations.`" may occur. It is not a problem for the metric calculation -- only indicating the lack of linear problem separability.
 
 The complexity calculator object stores a list of all estimated measures that can be read by the model's `complexity` attribute.
 
@@ -68,4 +68,51 @@ The problem difficulty score can also be obtained as a single scalar measure, wh
 
   >>> 0.203
 
+The problexity module, in addition to raw data output, also provides two standard representations of problem analysis. The first is a report in the form of a dictionary presenting the number of patterns (`n_samples`), attributes (`n_features`), classes (`classes`), their prior distribution (`prior_probability`), average metric (`score`) and all member metrics (`complexities`), which can be obtained using the model's `report()` method:
+
+.. code-block:: python
   
+  cc.report()
+
+  >>> {
+  >>>     'n_samples': 569, 
+  >>>     'n_features': 30, 
+  >>>     'n_classes': 2, 
+  >>>     'classes': array([0, 1]), 
+  >>>     'prior_probability': array([0.373, 0.627]), 
+  >>>     'score': 0.214, 
+  >>>     'complexities': 
+  >>>     {
+  >>>         'f1': 0.227, 'f1v': 0.064, 'f2': 0.001, 'f3': 0.478, 'f4': 0.012, 
+  >>>         'l1': 0.433, 'l2' : 0.069, 'l3': 0.049, 'n1': 0.043, 'n2': 0.296, 
+  >>>         'n3': 0.084, 'n4' : 0.039, 't1': 0.178, 't2': 0.053, 't3': 0.002, 
+  >>>         't4': 0.033, 'c1' : 0.047, 'c2': 0.122,
+  >>>         'lsc': 0.912, 'density': 0.741, 'clsCoef': 0.268, 'hubs': 0.569
+  >>>     }
+  >>> }
+
+The second form of reporting is a graph which, in the polar projection, collates all metrics, grouped into categories using color codes:
+
+- `red` – feature based measures,
+- `orange` – linearity measures,
+- `yellow` – neighborhood measures,
+- `green` – network measures,
+- `teal` – dimensionality measures,
+- `blue` – class imbalance measures.
+
+Each problem difficulty category occupies the same graph area, meaning that contexts that are less numerous in metrics (class imbalance) are not dominated in this presentation by categories described by many metrics (neighborhood). The illustration is built with the standard tools of the `matplotlib` module as a subplot of a figure and can be generated with the following source code:
+
+.. code-block:: python
+  # Import matplotlib
+  import matplotlib.pyplot as plt
+
+  # Prepare figure
+  fig = plt.figure(figsize=(7,7))
+
+  # Generate plot describing the dataset
+  cc.plot(fig, (1,1,1))
+
+
+An example of a complexity graph is shown below.
+
+.. image:: plots/example_graph.png

@@ -13,12 +13,14 @@ If you use problexity in a scientific publication, We would appreciate citation 
 
 ```
 @article{komorniczak2022complexity,
-  title={problexity--open-source Python library for measuring classification complexity},
-  author={Komorniczak, Joanna and Wojciechowski, Szymon and Ksieniewicz, Pawel},
+  title={problexity — an open-source Python library for binary classification problem complexity assessment},
+  author={Komorniczak, Joanna and and Ksieniewicz, Pawel},
   journal={arXiv preprint arXiv:XXXX.YYYYY},
   year={2022}
 }
+```
 
+```
 @article{lorena2018complex,
   title={How complex is your classification problem},
   author={Lorena, A and Garcia, L and Lehmann, Jens and Souto, M and Ho, T},
@@ -149,4 +151,3 @@ cc.plot(fig, (1,1,1))
 An example of a complexity graph is shown below.
 
 ![Example graph](example_graph.png)
-...
