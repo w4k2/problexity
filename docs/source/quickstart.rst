@@ -100,9 +100,10 @@ The second form of reporting is a graph which, in the polar projection, collates
 - `teal` – dimensionality measures,
 - `blue` – class imbalance measures.
 
-Each problem difficulty category occupies the same graph area, meaning that contexts that are less numerous in metrics (class imbalance) are not dominated in this presentation by categories described by many metrics (neighborhood). The illustration is built with the standard tools of the `matplotlib` module as a subplot of a figure and can be generated with the following source code:
+Each problem difficulty category occupies the same graph area, meaning that contexts that are less numerous in metrics (class imbalance) are not dominated in this presentation by categories described by many metrics (neighborhood). The illustration is built with the standard tools of the `matplotlib` module as a subplot of a figure and can be generated with the following source code.
 
 .. code-block:: python
+
   # Import matplotlib
   import matplotlib.pyplot as plt
 
