@@ -2,7 +2,7 @@
 Citation policy
 ###############
 
-If you use problexity in a scientific publication, We would appreciate citation to the following papers, including introduction of library and original introduction of used measures:::
+If you use problexity in a scientific publication, We would appreciate citation to the following papers, including introduction of library and original introduction of used measures::
 
     @article{komorniczak2022complexity,
     title={problexity--open-source Python library for measuring classification complexity},
