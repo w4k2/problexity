@@ -1,4 +1,5 @@
 0.1.0 – Implementation of 22 metrics.
 0.1.1 - Introduction of Complexity Calculator.
 0.2.0 - Including unit tests and documentation.
-0.3.0 - Final documentation with examples, calculator hidden methods and optimization. 
+0.3.0 - Final documentation with examples, calculator hidden methods and optimization.
+0.3.1 - Updating requirements on PyPI.
