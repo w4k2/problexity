@@ -62,12 +62,15 @@ def n2(X, y):
 
     X_0 = X[y==0]
     X_1 = X[y==1]
-    
-    infra_0 = distance_matrix(X_0, X_0)
-    infra_1 = distance_matrix(X_1, X_1)
 
-    extra_0 = distance_matrix(X_0, X_1)
-    extra_1 = distance_matrix(X_1, X_0)
+    try:
+        infra_0 = distance_matrix(X_0, X_0)
+        infra_1 = distance_matrix(X_1, X_1)
+
+        extra_0 = distance_matrix(X_0, X_1)
+        extra_1 = distance_matrix(X_1, X_0)
+    except:
+        return np.nan
 
     infra_extra = (np.sum(infra_0)+np.sum(infra_1))/(np.sum(extra_0)+np.sum(extra_1))
     return infra_extra/(1+infra_extra)

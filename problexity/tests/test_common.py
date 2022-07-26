@@ -261,6 +261,16 @@ def test_N2_imbalance():
     value = px.n2(X,y)
     assert 0 <= value <= 1 
 
+def test_N2_single_class():
+    X, y = make_classification(random_state=115, weights=[1., .0], flip_y=0.)
+    value = px.n2(X,y)
+    assert np.isnan(value)
+
+def test_N2_emptyset():
+    X, y = [], []
+    value = px.n2(X,y)
+    assert np.isnan(value)
+
 ### Test N3 ###
 
 def test_N3():
