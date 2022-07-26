@@ -28,8 +28,11 @@ def f1(X, y):
     X_0 = X[y==0]
     X_1 = X[y==1]
 
-    X_0_prop = X_0.shape[0]/X.shape[0]
-    X_1_prop = X_1.shape[0]/X.shape[0]
+    try:
+        X_0_prop = X_0.shape[0]/X.shape[0]
+        X_1_prop = X_1.shape[0]/X.shape[0]
+    except:
+        return np.nan
 
     X_0_mean = np.mean(X_0, axis = 0)
     X_1_mean = np.mean(X_1, axis = 0)
@@ -40,7 +43,7 @@ def f1(X, y):
     l = (X_0_prop*X_1_prop*np.power((X_0_mean - X_1_mean),2)) + (X_1_prop*X_0_prop*np.power((X_1_mean - X_0_mean),2))
     m = (X_0_prop*(np.power(X_0_std,2))) + (X_1_prop*(np.power(X_1_std,2)))
     r_all = l/m
-
+    
     return 1 / (1+np.max(r_all))
 
 def f1v(X, y):
