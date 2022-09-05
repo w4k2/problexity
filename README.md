@@ -15,7 +15,7 @@ If you use problexity in a scientific publication, We would appreciate citation 
 @article{komorniczak2022complexity,
   title={problexity — an open-source Python library for binary classification problem complexity assessment},
   author={Komorniczak, Joanna and and Ksieniewicz, Pawel},
-  journal={arXiv preprint arXiv:XXXX.YYYYY},
+  journal={arXiv preprint arXiv:2207.06709},
   year={2022}
 }
 ```
