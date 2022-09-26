@@ -1,6 +1,6 @@
 import numpy as np
 from scipy.spatial import distance_matrix
-from gower import gower_matrix
+from .gower import gower_matrix
 from igraph import Graph
 
 def _get_graph(X, y):
