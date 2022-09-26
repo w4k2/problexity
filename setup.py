@@ -26,7 +26,7 @@ URL = "https://w4k2.github.io/problexity/"
 LICENSE = "GPL-3.0"
 DOWNLOAD_URL = "https://github.com/w4k2/problexity"
 VERSION = __version__
-INSTALL_REQUIRES = ["numpy", "scipy", "scikit-learn", "matplotlib", "gower", "igraph", "pandas"]
+INSTALL_REQUIRES = ["numpy", "scipy", "scikit-learn", "matplotlib", "igraph", "pandas"]
 CLASSIFIERS = [
     "Development Status :: 4 - Beta",
     "Intended Audience :: Science/Research",

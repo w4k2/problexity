@@ -1,6 +1,6 @@
 import numpy as np
 from scipy.spatial import distance_matrix
-import gower
+from gower import gower_matrix
 from igraph import Graph
 
 def _get_graph(X, y):
@@ -8,7 +8,7 @@ def _get_graph(X, y):
     y = np.copy(y)
 
     epsilon= 0.15
-    dist = gower.gower_matrix(X)
+    dist = gower_matrix(X)
 
     for i in range(y.shape[0]):
         dist[i,i]=np.nan
