@@ -2,10 +2,8 @@
 """
 Feature correlation measures
 """
-from sklearn.datasets import make_regression
 from scipy.stats import spearmanr
 import numpy as np
-from scipy.stats import rankdata
 from sklearn.linear_model import LinearRegression
 
 def c1(X, y):
@@ -56,7 +54,7 @@ def c2(X, y):
     
     return np.sum(corr)/X.shape[1]
 
-def c3(X, y, normalize = True):
+def c3(X, y):
     """
     Calculates the individual feature efficiency (C3) metric. 
 
@@ -148,12 +146,12 @@ def c4(X, y, normalize = True):
 
         residuals = np.abs(_y - y_pred)
 
-        small_resuduals_mask = np.zeros_like(residuals)
-        small_resuduals_mask[residuals<=treshold] = 1
+        small_residuals_mask = np.zeros_like(residuals)
+        small_residuals_mask[residuals<=treshold] = 1
 
-        remaining_n = np.sum(small_resuduals_mask==False)
+        remaining_n = np.sum(small_residuals_mask==False)
 
-        _X = _X[small_resuduals_mask==False]
-        _y = _y[small_resuduals_mask==False]
+        _X = _X[small_residuals_mask==False]
+        _y = _y[small_residuals_mask==False]
 
     return remaining_n/X.shape[0]
