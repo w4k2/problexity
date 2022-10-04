@@ -58,7 +58,7 @@ def c3(X, y):
     """
     Calculates the individual feature efficiency (C3) metric. 
 
-    Measure is calculated based on a number of examples that have to be removed in order to obtain a high correlation value. Removes samples based on residual value of linear regression model. Lower values indicate simpler problems.
+    Measure is calculated based on a number of examples that have to be removed in order to obtain a high correlation value. Removes samples based on residual value of linear regression model.
 
     .. math::
 
@@ -104,7 +104,7 @@ def c4(X, y, normalize = True):
     """
     Calculates the collective feature efficiency (C4) metric. 
 
-    It sequentially analyzes the features with the greatest correlation to the output until all the features are used or all instances are removed. Samples with low resudual value are removed. A metric is computed based on the number of samples remaining after removal procedure. By default, 0-1 interval normalization is used. Lower values indicate simpler problems.
+    It sequentially analyzes the features with the greatest correlation to the output until all the features are used or all instances are removed. Samples with low resudual value are removed. A metric is computed based on the number of samples remaining after removal procedure. By default, 0-1 interval normalization is used.
 
     .. math::
 
