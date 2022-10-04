@@ -2,7 +2,6 @@
 """Toolbox for problem complexity."""
 from __future__ import absolute_import
 
-import codecs
 import os
 # read the contents of your README file
 from os import path

@@ -58,7 +58,7 @@ def c3(X, y):
     """
     Calculates the individual feature efficiency (C3) metric. 
 
-    Measure is calculated based on a number of examples that have to be removed in order to obtain a high correlation value. Removes samples based on residual value of linear regression model.
+    Measure is calculated based on a number of examples that have to be removed in order to obtain a high correlation value. Removes samples based on residual value of linear regression model. The iterations limit of 1000 was introduced.
 
     .. math::
 
@@ -73,6 +73,7 @@ def c3(X, y):
     :returns: C3 score
     """
     high_correlation_treshold = 0.9
+    limit = 1000
 
     njn = np.zeros((X.shape[1]))
 
@@ -87,13 +88,17 @@ def c3(X, y):
         mask = np.ones_like(residuals).astype(bool)
 
         f_correlation = np.abs(spearmanr(_X[:,f_id], _y).correlation)
+        cnt = 0
         while(f_correlation<=high_correlation_treshold):
             to_remove = np.argmax(residuals)
             residuals[to_remove]=-np.inf
             mask[to_remove]=0
 
             f_correlation = np.abs(spearmanr(_X[:,f_id][mask], _y[mask]).correlation)
-            
+            if cnt==limit:
+                print('Breaking C3 loop due to iterations limit')
+                break
+           
         num_removed = np.sum(mask==0)
         njn[f_id] = num_removed/X.shape[0]
     
@@ -104,7 +109,7 @@ def c4(X, y, normalize = True):
     """
     Calculates the collective feature efficiency (C4) metric. 
 
-    It sequentially analyzes the features with the greatest correlation to the output until all the features are used or all instances are removed. Samples with low resudual value are removed. A metric is computed based on the number of samples remaining after removal procedure. By default, 0-1 interval normalization is used.
+    It sequentially analyzes the features with the greatest correlation to the output until all the features are used or all instances are removed. Samples with low resudual value are removed. A metric is computed based on the number of samples remaining after removal procedure. By default, 0-1 interval normalization is used. The iterations limit of 1000 was introduced.
 
     .. math::
 
@@ -118,9 +123,10 @@ def c4(X, y, normalize = True):
     :rtype: float
     :returns: C4 score
     """
-    treshold=0.1
+    treshold = 0.1
     features_used = np.zeros((X.shape[1])).astype(bool)
     corr = np.zeros((X.shape[1]))
+    limit = 1000
 
     _X = np.copy(X)
     _y = np.copy(y)
@@ -132,6 +138,7 @@ def c4(X, y, normalize = True):
         _y -= np.min(_y)
         _y /=np.max(_y)
 
+    cnt = 0
     while (np.sum(features_used)<X.shape[1]) and len(_y)>0:
 
         for f_id in range(X.shape[1]):
@@ -153,5 +160,9 @@ def c4(X, y, normalize = True):
 
         _X = _X[small_residuals_mask==False]
         _y = _y[small_residuals_mask==False]
+
+        if cnt==limit:
+            print('Breaking C4 loop due to iterations limit')
+            break
 
     return remaining_n/X.shape[0]

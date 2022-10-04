@@ -1,16 +1,17 @@
-from .feature_based import f1, f1v, f2, f3, f4
-from .linearity import l1, l2, l3
-from .neighborhood import n1, n2, n3, n4, t1, lsc
-from .network import density, clsCoef, hubs
-from .dimensionality import t2, t3, t4
-from .class_imbalance import c1, c2
+from . import classification as c
+from . import regression as r
 import numpy as np
 
-C_METRICS = [f1, f1v, f2, f3, f4, l1, l2, l3, n1, n2, n3, n4,
-             t1, lsc, density, clsCoef, hubs, t2, t3, t4, c1, c2]
+C_METRICS = [c.f1, c.f1v, c.f2, c.f3, c.f4, c.l1, c.l2, c.l3, c.n1, c.n2, c.n3, c.n4,
+             c.t1, c.lsc, c.density, c.clsCoef, c.hubs, c.t2, c.t3, c.t4, c.c1, c.c2]
 C_COLORS = ['#FD0100', '#F76915', '#EEDE04', '#A0D636', '#2FA236', '#333ED4']
 C_RANGES = {'FB': 5, 'LR': 3, 'NB': 6,
             'NE': 3, 'DM': 3, 'CI': 2}
+
+R_METRICS = [r.c1, r.c2, r.c3, r.c4, r.l1, r.l2, r.s1, r.s2, r.s3, r.l3, r.s4, r.t2]
+R_COLORS = ['#FD0100', '#F76915', '#EEDE04', '#A0D636']
+R_RANGES = {'FC': 4, 'LR': 2, 'SM': 3, 'GT': 3}     
+
 class ComplexityCalculator:
     """
     Complexity Calculator Class.
@@ -65,17 +66,30 @@ class ComplexityCalculator:
         }
     }
     """
-    def __init__(self, metrics=C_METRICS, colors=C_COLORS, ranges=C_RANGES):
+    def __init__(self, metrics=None, colors=None, ranges=None, mode='classification'):
         # Initlialize configuration
-        self.metrics = metrics
-        self.colors = colors
-        self.ranges = ranges
+        self.mode = mode
+        
+        # Set default metrics, colors and ranges based on mode, if not provided
+        if None not in [metrics, colors, ranges]:
+            self.metrics = metrics
+            self.colors = colors
+            self.ranges = ranges
+        else:
+            if self.mode == 'regression':
+                self.metrics = R_METRICS
+                self.colors = R_COLORS
+                self.ranges = R_RANGES
+            else:
+                self.metrics = C_METRICS
+                self.colors = C_COLORS
+                self.ranges = C_RANGES
         
         # Validate test configuration
-        rsum = np.sum([self.ranges[k] for k in ranges])
+        rsum = np.sum([self.ranges[k] for k in self.ranges])
         if len(self.ranges) != len(self.colors):
             raise Exception('Number of ranges and colors does not match.')
-        if rsum != len(metrics):
+        if rsum != len(self.metrics):
             raise Exception('Ranges does not sum with number of metrics.')
         
         # Get all the metric names
