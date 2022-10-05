@@ -96,7 +96,6 @@ def test_T2():
     assert _get_comparison(metric)<0.5
 
 ### Test ComplexityCalculator ###
-
 def test_ComplexityCalculator():
     c = px.ComplexityCalculator(mode='regression')
     reps = 5

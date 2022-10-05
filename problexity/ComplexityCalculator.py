@@ -10,7 +10,9 @@ C_RANGES = {'FB': 5, 'LR': 3, 'NB': 6,
 
 R_METRICS = [r.c1, r.c2, r.c3, r.c4, r.l1, r.l2, r.s1, r.s2, r.s3, r.l3, r.s4, r.t2]
 R_COLORS = ['#FD0100', '#F76915', '#EEDE04', '#A0D636']
-R_RANGES = {'FC': 4, 'LR': 2, 'SM': 3, 'GT': 3}     
+R_RANGES = {'FC': 4, 'LR': 2, 'SM': 3, 'GT': 3}    
+MULTICLASS_STRATEGIES = ['ova', 'ovo'] 
+MODES = ['classification', 'regression']
 
 class ComplexityCalculator:
     """
@@ -20,11 +22,15 @@ class ComplexityCalculator:
 
     :type metrics: list, optional (default=all the metrics avalable in problexity)
     :param metrics: List of classification complexity measures used to validate a given set.
+    :type mode: string, optional (default=classification)
+    :param mode: Recognition task for which metrics should be calculated. Might be selected between `classification` and `regression`.
+    :type multiclass_strategy: string, optional (default=ova)
+    :param multiclass_strategy: Strategy used for multiclass metric integration. Might be selected between `ova` and `ovo`.
     :type ranges: dict, optional (default=all the default six groups of metrics)
     :param ranges: Configuration of radar visualisation, allowing to group metrics by color.
     :type colors: list, optional (default=six-color palette)
     :param colors: List of colors assigned to groups on radar visualisation.
-
+    
     :vartype complexity: list
     :var complexity: The list of all the scores acquired with metrics defined by metrics list.
     :vartype n_samples: int
@@ -66,9 +72,15 @@ class ComplexityCalculator:
         }
     }
     """
-    def __init__(self, metrics=None, colors=None, ranges=None, mode='classification'):
+    def __init__(self, metrics=None, colors=None, ranges=None, mode='classification', multiclass_strategy='ovo'):
         # Initlialize configuration
-        self.mode = mode
+        if mode not in MODES:
+            raise Exception('Unsupported mode %s, must be from list %s.' % (
+                mode,
+                ', '.join(MODES)
+            ))
+        else:
+            self.mode = mode
         
         # Set default metrics, colors and ranges based on mode, if not provided
         if None not in [metrics, colors, ranges]:
@@ -91,6 +103,13 @@ class ComplexityCalculator:
             raise Exception('Number of ranges and colors does not match.')
         if rsum != len(self.metrics):
             raise Exception('Ranges does not sum with number of metrics.')
+        if multiclass_strategy not in MULTICLASS_STRATEGIES:
+            raise Exception('Unsupported multiclass_strategy %s, must be from list %s.' % (
+                multiclass_strategy,
+                ', '.join(MULTICLASS_STRATEGIES)
+            ))
+        else:
+            self.multiclass_strategy = multiclass_strategy
         
         # Get all the metric names
         self.cnames = [m.__name__ for m in self.metrics]   
@@ -111,12 +130,39 @@ class ComplexityCalculator:
         # Check is fit had been called
         # Do basic calculations
         self.n_samples, self.n_features = X.shape
-        self.classes, self.prior_probability = np.unique(y, return_counts=True)
-        self.prior_probability = self.prior_probability / self.n_samples
-        self.n_classes = len(self.classes)
+        if self.mode == 'classification':
+            self.classes, self.prior_probability = np.unique(y, return_counts=True)
+            self.prior_probability = self.prior_probability / self.n_samples
+            self.n_classes = len(self.classes)
         
         # Calculate complexity
-        self.complexity = [m(X, y) for m in self.metrics]
+        # Binary case
+        if (self.mode == 'regression') or (self.n_classes == 2):
+            self.complexity = [m(X, y) for m in self.metrics]
+        else:
+            # Prepare container for complexities
+            complexities = []
+            
+            
+            if self.multiclass_strategy == 'ova':
+                # OVA
+                for i in self.classes:
+                    complexities.append([m(X, (y == i).astype(int)) for m in self.metrics])
+            elif self.multiclass_strategy == 'ovo':
+                # OVO
+                for i in self.classes:
+                    for j in self.classes:
+                        if i!= j:
+                            mask = (y==i) + (y==j)
+                            _y = (y[mask] == j).astype(int)
+                            complexities.append([m(X[mask], _y) for m in self.metrics])
+              
+            # Calculate mean complexity                  
+            self.complexity = np.mean(np.array(complexities), axis=0).tolist()
+            
+            # Establish complexity deviation
+            self.complexity_std = np.std(np.array(complexities), axis=0).tolist()            
+            
         return self
     
     def _metrics(self):
