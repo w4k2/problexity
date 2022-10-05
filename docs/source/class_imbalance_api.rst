@@ -2,12 +2,12 @@
 Class Imbalance Measures
 ########################
 
-.. currentmodule:: problexity
+.. currentmodule:: classification.problexity
 
 .. autosummary::
   c1
   c2
 
-.. automodule:: problexity
+.. automodule:: classification.problexity
   :members: c1, c2
   :show-inheritance:
