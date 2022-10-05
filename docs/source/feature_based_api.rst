@@ -2,7 +2,7 @@
 Feature-based Measures
 ######################
 
-.. currentmodule:: problexity
+.. currentmodule:: problexity.classification
 
 .. autosummary::
   f1
@@ -11,6 +11,6 @@ Feature-based Measures
   f3
   f4
 
-.. automodule:: problexity
+.. automodule:: problexity.classification
   :members: f1, f1v, f2, f3, f4
   :show-inheritance:

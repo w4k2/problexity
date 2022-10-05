@@ -2,13 +2,13 @@
 Dimensionality Measures
 #######################
 
-.. currentmodule:: problexity
+.. currentmodule:: problexity.classification
 
 .. autosummary::
   t2
   t3
   t4
 
-.. automodule:: problexity
+.. automodule:: problexity.classification
   :members: t2, t3, t4
   :show-inheritance:

@@ -2,7 +2,7 @@
 Neighborhood Measures
 #####################
 
-.. currentmodule:: problexity
+.. currentmodule:: problexity.classification
 
 .. autosummary::
   n1
@@ -12,6 +12,6 @@ Neighborhood Measures
   t1
   lsc
 
-.. automodule:: problexity
+.. automodule:: problexity.classification
   :members: n1, n2, n3, n4, t1, lsc
   :show-inheritance:

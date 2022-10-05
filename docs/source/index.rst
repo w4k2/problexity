@@ -15,11 +15,14 @@ Welcome to problexity documentation!
    :caption: Documentation
 
    class_imbalance_api
+   correlation_api
    dimensionality_api
    feature_based_api
+   geometry_api
    linearity_api
    neighborhood_api
    network_api
+   smoothness_api
    complexity_calculator_api
    
 .. toctree::
