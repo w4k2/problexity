@@ -52,9 +52,9 @@ def c2(X, y):
     for f_id in range(X.shape[1]):
         corr[f_id] = np.abs(spearmanr(X[:,f_id], y).correlation)
     
-    return np.sum(corr)/X.shape[1]
+    return np.sum(corr)/X.shape[1]    
 
-def c3(X, y):
+def _c3_l(X, y):
     """
     Calculates the individual feature efficiency (C3) metric. 
 
@@ -102,9 +102,74 @@ def c3(X, y):
         num_removed = np.sum(mask==0)
         njn[f_id] = num_removed/X.shape[0]
     
+    return np.min(njn)    
+
+def _c3_h(X, y):
+    """
+    Calculates the individual feature efficiency (C3) metric. 
+
+    Measure is calculated based on a number of examples that have to be removed in order to obtain a high correlation value. Removes samples based on residual value of linear regression model. The iterations limit of 1000 was introduced.
+
+    .. math::
+
+        C3=min_{j=1}^{d}\\frac{n^j}{n}
+
+    :type X: array-like, shape (n_samples, n_features)
+    :param X: Dataset
+    :type y: array-like, shape (n_samples)
+    :param y: Labels
+
+    :rtype: float
+    :returns: C3 score
+    """
+    high_correlation_treshold = 0.9
+
+    njn = np.zeros((X.shape[1]))
+
+    _X = np.copy(X)
+    _y = np.copy(y)
+
+    n_samples = X.shape[0]
+    
+    for f_id in range(X.shape[1]):
+        linreg = LinearRegression().fit(_X[:,f_id].reshape(-1,1),_y)
+        y_pred = linreg.predict(_X[:,f_id].reshape(-1,1))
+
+        residuals = np.abs(_y - y_pred)
+        
+        sorter = np.argsort(-residuals)
+        
+        rX = np.copy(_X[sorter])
+        ry = np.copy(_y[sorter])
+        
+        step = n_samples / 2
+        head = 0
+        
+        while (True):
+            __X = rX[int(head):, f_id]
+            __y = ry[int(head):]
+            
+            corr = np.abs(spearmanr(__X, __y).correlation)
+            if np.isnan(corr):
+                corr = 1
+            
+            if corr > high_correlation_treshold:
+                step /= 2
+                head -= step
+            else:
+                head += step
+                
+            if step < .5:
+                break
+                    
+        num_removed = int(np.rint(head))
+        njn[f_id] = num_removed/X.shape[0]
+        
     return np.min(njn)
 
-  
+def c3(X, y, is_optimized=True):
+    return _c3_h(X,y) if is_optimized else _c3_l(X,y)
+
 def c4(X, y, normalize = True):
     """
     Calculates the collective feature efficiency (C4) metric. 
@@ -126,7 +191,6 @@ def c4(X, y, normalize = True):
     treshold = 0.1
     features_used = np.zeros((X.shape[1])).astype(bool)
     corr = np.zeros((X.shape[1]))
-    limit = 1000
 
     _X = np.copy(X)
     _y = np.copy(y)
@@ -138,7 +202,6 @@ def c4(X, y, normalize = True):
         _y -= np.min(_y)
         _y /=np.max(_y)
 
-    cnt = 0
     while (np.sum(features_used)<X.shape[1]) and len(_y)>0:
 
         for f_id in range(X.shape[1]):
@@ -160,9 +223,5 @@ def c4(X, y, normalize = True):
 
         _X = _X[small_residuals_mask==False]
         _y = _y[small_residuals_mask==False]
-
-        if cnt==limit:
-            print('Breaking C4 loop due to iterations limit')
-            break
 
     return remaining_n/X.shape[0]

@@ -3,7 +3,7 @@ import problexity as px
 from sklearn.datasets import make_regression
 import numpy as np
     
-def _get_comparison(metric):
+def _get_comparison(metric, args=[]):
     reps = 10
     res = np.zeros((reps, 2))
 
@@ -14,8 +14,8 @@ def _get_comparison(metric):
         X_complex, y_complex = make_regression(n_samples=300, n_features=100,
                         n_informative=10, noise=1200)
 
-        r_s = metric(X_simple, y_simple)
-        r_c = metric(X_complex, y_complex)
+        r_s = metric(X_simple, y_simple, *args)
+        r_c = metric(X_complex, y_complex, *args)
 
         res[r, 0] = r_s
         res[r, 1] = r_c
@@ -40,6 +40,10 @@ def test_C2():
 def test_C3():
     metric = px.regression.c3
     assert _get_comparison(metric)>0.5
+
+def test_C3_l():
+    metric = px.regression.c3
+    assert _get_comparison(metric, [False])>0.5
 
 ## C4 tests ###
 
