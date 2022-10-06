@@ -55,25 +55,7 @@ def c2(X, y):
     return np.sum(corr)/X.shape[1]    
 
 def _c3_l(X, y):
-    """
-    Calculates the individual feature efficiency (C3) metric. 
-
-    Measure is calculated based on a number of examples that have to be removed in order to obtain a high correlation value. Removes samples based on residual value of linear regression model. The iterations limit of 1000 was introduced.
-
-    .. math::
-
-        C3=min_{j=1}^{d}\\frac{n^j}{n}
-
-    :type X: array-like, shape (n_samples, n_features)
-    :param X: Dataset
-    :type y: array-like, shape (n_samples)
-    :param y: Labels
-
-    :rtype: float
-    :returns: C3 score
-    """
     high_correlation_treshold = 0.9
-    limit = 1000
 
     njn = np.zeros((X.shape[1]))
 
@@ -81,23 +63,24 @@ def _c3_l(X, y):
     _y = np.copy(y)
 
     for f_id in range(X.shape[1]):
+        # For each feature a linear regression model is fitted on data.
         linreg = LinearRegression().fit(_X[:,f_id].reshape(-1,1),_y)
         y_pred = linreg.predict(_X[:,f_id].reshape(-1,1))
 
+        # The residual values are calculated based on predictions.
         residuals = np.abs(_y - y_pred)
         mask = np.ones_like(residuals).astype(bool)
 
+        # The initial correlation for feature is calculated.
         f_correlation = np.abs(spearmanr(_X[:,f_id], _y).correlation)
-        cnt = 0
         while(f_correlation<=high_correlation_treshold):
+            # The sample with a largest residual value is selected to be removed, and its residual value is substituted with -infinity.
             to_remove = np.argmax(residuals)
             residuals[to_remove]=-np.inf
             mask[to_remove]=0
 
+            # The new correlation value is calculated. The loop is repeated until a high correlation value is achieved.
             f_correlation = np.abs(spearmanr(_X[:,f_id][mask], _y[mask]).correlation)
-            if cnt==limit:
-                print('Breaking C3 loop due to iterations limit')
-                break
            
         num_removed = np.sum(mask==0)
         njn[f_id] = num_removed/X.shape[0]
@@ -105,23 +88,6 @@ def _c3_l(X, y):
     return np.min(njn)    
 
 def _c3_h(X, y):
-    """
-    Calculates the individual feature efficiency (C3) metric. 
-
-    Measure is calculated based on a number of examples that have to be removed in order to obtain a high correlation value. Removes samples based on residual value of linear regression model. The iterations limit of 1000 was introduced.
-
-    .. math::
-
-        C3=min_{j=1}^{d}\\frac{n^j}{n}
-
-    :type X: array-like, shape (n_samples, n_features)
-    :param X: Dataset
-    :type y: array-like, shape (n_samples)
-    :param y: Labels
-
-    :rtype: float
-    :returns: C3 score
-    """
     high_correlation_treshold = 0.9
 
     njn = np.zeros((X.shape[1]))
@@ -132,20 +98,25 @@ def _c3_h(X, y):
     n_samples = X.shape[0]
     
     for f_id in range(X.shape[1]):
+        # For each feature a linear regression model is fitted on data.
         linreg = LinearRegression().fit(_X[:,f_id].reshape(-1,1),_y)
         y_pred = linreg.predict(_X[:,f_id].reshape(-1,1))
 
+        # The residual values are calculated based on predictions.
         residuals = np.abs(_y - y_pred)
         
         sorter = np.argsort(-residuals)
         
+        # Objects are sorted based on residual value -- starting from the highest.
         rX = np.copy(_X[sorter])
         ry = np.copy(_y[sorter])
-        
+
+        # Initialize the step and split point.
         step = n_samples / 2
         head = 0
         
         while (True):
+            # Current X and y, based on current split point.
             __X = rX[int(head):, f_id]
             __y = ry[int(head):]
             
@@ -154,20 +125,40 @@ def _c3_h(X, y):
                 corr = 1
             
             if corr > high_correlation_treshold:
+                # Step in the right direction -- lower the step.
                 step /= 2
                 head -= step
             else:
                 head += step
                 
+            # If step is smaller than 1/2 instance -- break the loop.
             if step < .5:
                 break
-                    
+
+        # Establish number or removed objects based on split position.
         num_removed = int(np.rint(head))
         njn[f_id] = num_removed/X.shape[0]
         
     return np.min(njn)
 
 def c3(X, y, is_optimized=True):
+    """
+    Calculates the individual feature efficiency (C3) metric. 
+
+    Measure is calculated based on a number of examples that have to be removed in order to obtain a high correlation value. Removes samples based on residual value of linear regression model. The is_optimized flag value allows using optimized algorithm, based on divide and conquer strategy.
+
+    .. math::
+
+        C3=min_{j=1}^{d}\\frac{n^j}{n}
+
+    :type X: array-like, shape (n_samples, n_features)
+    :param X: Dataset
+    :type y: array-like, shape (n_samples)
+    :param y: Labels
+
+    :rtype: float
+    :returns: C3 score
+    """
     return _c3_h(X,y) if is_optimized else _c3_l(X,y)
 
 def c4(X, y, normalize = True):
