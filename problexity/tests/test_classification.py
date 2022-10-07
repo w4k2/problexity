@@ -2,19 +2,22 @@
 import problexity as px
 from sklearn.datasets import make_classification
 import numpy as np
-    
+
+np.random.seed(123)
+
 def _get_comparison(metric):
     reps = 20
     res = np.zeros((reps, 2))
+    rs = np.random.randint(100,10000,reps)
 
     for r in range(reps):
         X_simple, y_simple = make_classification(n_samples=500, n_features=5, n_redundant=0, 
                         n_informative=5, n_clusters_per_class=2, n_classes=2, flip_y=0, 
-                        class_sep=10, weights=[0.5, 0.5])
+                        class_sep=10, weights=[0.5, 0.5], random_state=rs[r])
 
         X_complex, y_complex = make_classification(n_samples=500, n_features=10, n_redundant=0, 
                         n_informative=10, n_clusters_per_class=2, n_classes=2, flip_y=0.2, 
-                        class_sep=0.01, weights=[0.9, 0.1])
+                        class_sep=0.01, weights=[0.9, 0.1], random_state=rs[r])
 
         r_s = metric(X_simple, y_simple)
         r_c = metric(X_complex, y_complex)
@@ -544,15 +547,16 @@ def test_ComplexityCalculator():
     c = px.ComplexityCalculator()
     reps = 10
     res = np.zeros((reps, 2))
+    rs = np.random.randint(100,10000,reps)    
 
     for r in range(reps):
         X_simple, y_simple = make_classification(n_samples=500, n_features=5, n_redundant=0, 
                         n_informative=5, n_clusters_per_class=2, n_classes=2, flip_y=0, 
-                        class_sep=3.5, weights=[0.5, 0.5])
+                        class_sep=3.5, weights=[0.5, 0.5], random_state=rs[r])
 
         X_complex, y_complex = make_classification(n_samples=500, n_features=10, n_redundant=0, 
                         n_informative=10, n_clusters_per_class=2, n_classes=2, flip_y=0.2, 
-                        class_sep=0.01, weights=[0.9, 0.1])
+                        class_sep=0.01, weights=[0.9, 0.1], random_state=rs[r])
 
         res[r, 0] = c.fit(X_simple, y_simple).score()
         res[r, 1] = c.fit(X_complex, y_complex).score()
@@ -560,19 +564,30 @@ def test_ComplexityCalculator():
     comparison = np.mean(res, axis=0)
     assert comparison[0]<comparison[1]
     
+def test_ComplexityCalculator_report():
+    c = px.ComplexityCalculator()
+
+    X_simple, y_simple = make_classification(n_samples=500, n_features=5, n_redundant=0, 
+                        n_informative=5, n_clusters_per_class=2, n_classes=2, flip_y=0, 
+                        class_sep=3.5, weights=[0.5, 0.5], random_state=123)
+
+    report = c.fit(X_simple, y_simple).report()
+    assert isinstance(report, dict)
+    
 def test_OVA():
     c = px.ComplexityCalculator(multiclass_strategy='ova')
     reps = 10
     res = np.zeros((reps, 2))
+    rs = np.random.randint(100,10000,reps)
 
     for r in range(reps):
         X_simple, y_simple = make_classification(n_samples=500, n_features=5, n_redundant=0, 
                         n_informative=5, n_clusters_per_class=2, n_classes=3, flip_y=0, 
-                        class_sep=3.5, weights=[0.33, 0.33, 0.34])
+                        class_sep=3.5, weights=[0.33, 0.33, 0.34], random_state=rs[r])
 
         X_complex, y_complex = make_classification(n_samples=500, n_features=10, n_redundant=0, 
                         n_informative=10, n_clusters_per_class=2, n_classes=3, flip_y=0.2, 
-                        class_sep=0.01, weights=[0.8, 0.1, 0.1])
+                        class_sep=0.01, weights=[0.8, 0.1, 0.1], random_state=rs[r])
 
         res[r, 0] = c.fit(X_simple, y_simple).score()
         res[r, 1] = c.fit(X_complex, y_complex).score()
@@ -584,15 +599,16 @@ def test_OVO():
     c = px.ComplexityCalculator(multiclass_strategy='ovo')
     reps = 10
     res = np.zeros((reps, 2))
+    rs = np.random.randint(100,10000,reps)
 
     for r in range(reps):
         X_simple, y_simple = make_classification(n_samples=500, n_features=5, n_redundant=0, 
                         n_informative=5, n_clusters_per_class=2, n_classes=3, flip_y=0, 
-                        class_sep=3.5, weights=[0.33, 0.33, 0.34])
+                        class_sep=3.5, weights=[0.33, 0.33, 0.34], random_state=rs[r])
 
         X_complex, y_complex = make_classification(n_samples=500, n_features=10, n_redundant=0, 
                         n_informative=10, n_clusters_per_class=2, n_classes=3, flip_y=0.2, 
-                        class_sep=0.01, weights=[0.8, 0.1, 0.1])
+                        class_sep=0.01, weights=[0.8, 0.1, 0.1], random_state=rs[r])
 
         res[r, 0] = c.fit(X_simple, y_simple).score()
         res[r, 1] = c.fit(X_complex, y_complex).score()

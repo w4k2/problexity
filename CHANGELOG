@@ -10,3 +10,4 @@
 0.5.1 - Multiclass support and changes in ComplexityCalculator -- adjustments to regression; Optimization of C3 measure.
 0.5.2 - Include complexity measures as default in init.
 0.5.4 - Normalize all feature correlation input data by default.
+0.5.5 - Upgrade score and report methods.

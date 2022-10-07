@@ -7,10 +7,14 @@ C_METRICS = [c.f1, c.f1v, c.f2, c.f3, c.f4, c.l1, c.l2, c.l3, c.n1, c.n2, c.n3, 
 C_COLORS = ['#FD0100', '#F76915', '#EEDE04', '#A0D636', '#2FA236', '#333ED4']
 C_RANGES = {'FB': 5, 'LR': 3, 'NB': 6,
             'NE': 3, 'DM': 3, 'CI': 2}
+C_WEIGHTS = np.ones((22))
 
 R_METRICS = [r.c1, r.c2, r.c3, r.c4, r.l1, r.l2, r.s1, r.s2, r.s3, r.l3, r.s4, r.t2]
 R_COLORS = ['#FD0100', '#F76915', '#EEDE04', '#A0D636']
-R_RANGES = {'FC': 4, 'LR': 2, 'SM': 3, 'GT': 3}    
+R_RANGES = {'FC': 4, 'LR': 2, 'SM': 3, 'GT': 3} 
+R_WEIGHTS = np.ones((12))
+R_WEIGHTS[[0,1,-1]]=-1
+
 MULTICLASS_STRATEGIES = ['ova', 'ovo'] 
 MODES = ['classification', 'regression']
 
@@ -30,7 +34,9 @@ class ComplexityCalculator:
     :param ranges: Configuration of radar visualisation, allowing to group metrics by color.
     :type colors: list, optional (default=six-color palette)
     :param colors: List of colors assigned to groups on radar visualisation.
-    
+    :type weights: list, optional (default=list of weights, where weight are equal to 1 for all measures where simpler problems have smaller value, otherwise -1)
+    :param weights: List of weights taken into account in score() procedure.
+
     :vartype complexity: list
     :var complexity: The list of all the scores acquired with metrics defined by metrics list.
     :vartype n_samples: int
@@ -72,7 +78,7 @@ class ComplexityCalculator:
         }
     }
     """
-    def __init__(self, metrics=None, colors=None, ranges=None, mode='classification', multiclass_strategy='ovo'):
+    def __init__(self, metrics=None, colors=None, ranges=None, weights=None, mode='classification', multiclass_strategy='ovo'):
         # Initlialize configuration
         if mode not in MODES:
             raise Exception('Unsupported mode %s, must be from list %s.' % (
@@ -83,19 +89,22 @@ class ComplexityCalculator:
             self.mode = mode
         
         # Set default metrics, colors and ranges based on mode, if not provided
-        if None not in [metrics, colors, ranges]:
+        if None not in [metrics, colors, ranges, weights]:
             self.metrics = metrics
             self.colors = colors
             self.ranges = ranges
+            self.weights = weights
         else:
             if self.mode == 'regression':
                 self.metrics = R_METRICS
                 self.colors = R_COLORS
                 self.ranges = R_RANGES
+                self.weights = R_WEIGHTS
             else:
                 self.metrics = C_METRICS
                 self.colors = C_COLORS
                 self.ranges = C_RANGES
+                self.weights = C_WEIGHTS
         
         # Validate test configuration
         rsum = np.sum([self.ranges[k] for k in self.ranges])
@@ -204,19 +213,34 @@ class ComplexityCalculator:
         report = {
             'n_samples': self.n_samples,
             'n_features': self.n_features,
-            'n_classes': self.n_classes,
-            'classes': self.classes,
-            'prior_probability': self.prior_probability,
             'score': np.around(self.score(), precision),
             'complexities': {}
         }
-        for metric, score in zip(self.metrics, self.complexity):
-            report['complexities'].update({
-                metric.__name__: np.around(score,precision)
-            })
+        if self.mode == 'classification':
+            report.update({'n_classes': self.n_classes,
+                           'classes': self.n_classes,
+                           'prior_probability': self.prior_probability})
+
+            if self.n_classes > 2:
+                report.update({'complexities_std': {}})
+
+        if (self.mode == 'regression') or (self.n_classes == 2):
+            for metric, score in zip(self.metrics, self.complexity):
+                report['complexities'].update({
+                    metric.__name__: np.around(score,precision)
+                })
+        else:
+            for metric, score, std in zip(self.metrics, self.complexity, self.complexity_std):
+                report['complexities'].update({
+                    metric.__name__: np.around(score,precision)
+                })
+                report['complexities_std'].update({
+                    metric.__name__: np.around(std,precision)
+                })
+
         return report
 
-    def score(self, weights=None):
+    def score(self):
         """Returns integrated score of problem complexity
 
         :type weights: array-like, optional (default=None), shape (n_metrics) 
@@ -226,18 +250,16 @@ class ComplexityCalculator:
         :returns: Single score for integrated metrics
         """
         self._check_is_fitted()  
-        if weights is not None:
-            # Check length of weights vector
-            if len(weights) != len(self.metrics):
-                raise Exception('Mismatch between number of metrics and number of weights.')
 
-            # Normalize weights
-            self.weights = np.array(weights) / np.sum(weights)
-            
-            # Calculate weighted score
-            return np.sum(self.weights * self.complexity)
-        else:            
-            return np.mean(self.complexity)
+        # Check length of weights vector
+        if len(self.weights) != len(self.metrics):
+            raise Exception('Mismatch between number of metrics and number of weights.')
+
+        # Normalize weights
+        self.weights = np.array(self.weights) / np.sum(self.weights)
+        
+        # Calculate weighted score
+        return np.sum(self.weights * self.complexity)
        
     def plot(self, figure, spec=(1,1,1)):
         """Returns integrated score of problem complexity
