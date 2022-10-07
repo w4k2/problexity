@@ -6,7 +6,7 @@ from scipy.stats import spearmanr
 import numpy as np
 from sklearn.linear_model import LinearRegression
 
-def c1(X, y):
+def c1(X, y, normalize=True):
     """
     Calculates the maximum feature correlationto the output (C1) metric. 
 
@@ -24,13 +24,23 @@ def c1(X, y):
     :rtype: float
     :returns: C1 score
     """
+    X = np.copy(X)
+    y = np.copy(y)
+
+    if normalize:
+        for f_id in range(X.shape[1]):
+            X[:,f_id] -=np.min(X[:,f_id])
+            X[:,f_id] /=np.max(X[:,f_id])
+        y -= np.min(y)
+        y /=np.max(y)
+
     corr = np.zeros((X.shape[1]))
     for f_id in range(X.shape[1]):
         corr[f_id] = np.abs(spearmanr(X[:,f_id], y).correlation)
     
     return np.max(corr)
 
-def c2(X, y):
+def c2(X, y, normalize = True):
     """
     Calculates the average feature correlationto the output (C2) metric. 
 
@@ -48,21 +58,28 @@ def c2(X, y):
     :rtype: float
     :returns: C2 score
     """
+    X = np.copy(X)
+    y = np.copy(y)
+
+    if normalize:
+        for f_id in range(X.shape[1]):
+            X[:,f_id] -=np.min(X[:,f_id])
+            X[:,f_id] /=np.max(X[:,f_id])
+        y -= np.min(y)
+        y /=np.max(y)
+
     corr = np.zeros((X.shape[1]))
     for f_id in range(X.shape[1]):
         corr[f_id] = np.abs(spearmanr(X[:,f_id], y).correlation)
     
     return np.sum(corr)/X.shape[1]    
 
-def _c3_l(X, y):
+def _c3_l(_X, _y):
     high_correlation_treshold = 0.9
 
-    njn = np.zeros((X.shape[1]))
+    njn = np.zeros((_X.shape[1]))
 
-    _X = np.copy(X)
-    _y = np.copy(y)
-
-    for f_id in range(X.shape[1]):
+    for f_id in range(_X.shape[1]):
         # For each feature a linear regression model is fitted on data.
         linreg = LinearRegression().fit(_X[:,f_id].reshape(-1,1),_y)
         y_pred = linreg.predict(_X[:,f_id].reshape(-1,1))
@@ -83,21 +100,18 @@ def _c3_l(X, y):
             f_correlation = np.abs(spearmanr(_X[:,f_id][mask], _y[mask]).correlation)
            
         num_removed = np.sum(mask==0)
-        njn[f_id] = num_removed/X.shape[0]
+        njn[f_id] = num_removed/_X.shape[0]
     
     return np.min(njn)    
 
-def _c3_h(X, y):
+def _c3_h(_X, _y):
     high_correlation_treshold = 0.9
 
-    njn = np.zeros((X.shape[1]))
+    njn = np.zeros((_X.shape[1]))
 
-    _X = np.copy(X)
-    _y = np.copy(y)
-
-    n_samples = X.shape[0]
+    n_samples = _X.shape[0]
     
-    for f_id in range(X.shape[1]):
+    for f_id in range(_X.shape[1]):
         # For each feature a linear regression model is fitted on data.
         linreg = LinearRegression().fit(_X[:,f_id].reshape(-1,1),_y)
         y_pred = linreg.predict(_X[:,f_id].reshape(-1,1))
@@ -137,11 +151,11 @@ def _c3_h(X, y):
 
         # Establish number or removed objects based on split position.
         num_removed = int(np.rint(head))
-        njn[f_id] = num_removed/X.shape[0]
+        njn[f_id] = num_removed/_X.shape[0]
         
     return np.min(njn)
 
-def c3(X, y, is_optimized=True):
+def c3(X, y, is_optimized=True, normalize=True):
     """
     Calculates the individual feature efficiency (C3) metric. 
 
@@ -159,6 +173,16 @@ def c3(X, y, is_optimized=True):
     :rtype: float
     :returns: C3 score
     """
+    X = np.copy(X)
+    y = np.copy(y)
+
+    if normalize:
+        for f_id in range(X.shape[1]):
+            X[:,f_id] -=np.min(X[:,f_id])
+            X[:,f_id] /=np.max(X[:,f_id])
+        y -= np.min(y)
+        y /=np.max(y)
+
     return _c3_h(X,y) if is_optimized else _c3_l(X,y)
 
 def c4(X, y, normalize = True):

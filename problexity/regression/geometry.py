@@ -104,7 +104,7 @@ def s4(X, y, normalize=True):
     err = KNeighborsRegressor().fit(X,y).predict(X_new) - y_new
     return np.sum(np.power(err, 2))/X_new.shape[0]
     
-def t2(X,y):
+def t2(X, y):
     """
     Calculates the average number of examples per dimension (T2) measure.
 
