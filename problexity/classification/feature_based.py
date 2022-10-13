@@ -89,7 +89,11 @@ def f1v(X, y):
     B = np.dot((X_0_mean - X_1_mean).reshape(-1,1),(X_0_mean - X_1_mean).reshape(1,-1))
 
     W = sigm0*X_0_prop + sigm1*X_1_prop
-    W_1 = np.linalg.pinv(W)
+    try:
+        W_1 = np.linalg.pinv(W)
+    except:
+        # Will return nan in case only one class instances occur -- numpy throws: numpy.linalg.LinAlgError: SVD did not converge
+        return np.nan
 
     d = np.dot(W_1,(X_0_mean - X_1_mean))
     dt = d.T

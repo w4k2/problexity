@@ -85,6 +85,12 @@ def test_F1v_imbalance():
     X, y = make_classification(random_state=115, weights=[.99, .01], flip_y=0.)
     value = px.classification.f1v(X,y)
     assert 0 <= value <= 1 
+    
+
+def test_F1v_one_class():
+    X, y = make_classification(random_state=115, weights=[1, 0], flip_y=0)
+    value = px.classification.f1v(X,y)
+    assert np.isnan(value)
 
 ### F2 tests ###
 
