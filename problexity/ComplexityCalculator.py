@@ -367,7 +367,7 @@ class ComplexityCalculator:
         ax.set_yticks([])
         
         ax.set_ylim(-.15,1.25)
-        ax.text(-.15, -.15, '%.1f' % (self.score()*100),
+        ax.text(-.15, -.15, ('%.1f' if self.mode=='classification' else '%.2f') % (self.score()*(100 if self.mode=='classification' else 1)),
                 ha='center',
                 va='center',
                 fontsize=12,

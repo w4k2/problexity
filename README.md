@@ -39,6 +39,11 @@ To use the `problexity` package, it will be absolutely useful to install it. For
 pip3 install -U problexity
 ```
 
+The package is also available through `conda`:
+```
+conda install -c w4k2 problexity
+```
+
 To enable the possibility to modify the measures provided by `problexity` or in case of necessity to expand it with functions that it does not yet include, it is also possible to install the module directly from the source code. If any modifications are introduced, they propagate to the module currently available to the environment.
 
 ```shell
