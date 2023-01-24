@@ -4,11 +4,14 @@ Citation policy
 
 If you use problexity in a scientific publication, We would appreciate citation to the following papers, including introduction of library and original introduction of used measures::
 
-    @article{komorniczak2022complexity,
-    title={problexity -- an open-source Python library for binary classification problem complexity assessment},
-    author={Komorniczak, Joanna and Ksieniewicz, Pawel},
-    journal={arXiv preprint arXiv:2207.06709},
-    year={2022}
+    @article{komorniczak2023problexity,
+    title={problexity—An open-source Python library for supervised learning problem complexity assessment},
+    author={Komorniczak, Joanna and Ksieniewicz, Pawe{\l}},
+    journal={Neurocomputing},
+    volume={521},
+    pages={126--136},
+    year={2023},
+    publisher={Elsevier}
     }
 
     @article{lorena2018complex,
