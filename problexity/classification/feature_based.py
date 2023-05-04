@@ -44,7 +44,7 @@ def f1(X, y):
     m = (X_0_prop*(np.power(X_0_std,2))) + (X_1_prop*(np.power(X_1_std,2)))
     r_all = l/m
     
-    return 1 / (1+np.max(r_all))
+    return 1 / (1+np.nanmax(r_all))
 
 def f1v(X, y):
     """
@@ -138,7 +138,7 @@ def f2(X, y):
     f_overlap = np.max((np.zeros((X.shape[1])), (minmax - maxmin)), axis=0)
     f_range = maxmax - minmin
 
-    return np.product(f_overlap/f_range)
+    return np.nanprod(f_overlap/f_range)
 
 def f3(X, y):
     """
