@@ -5,8 +5,7 @@ import numpy as np
 from scipy.spatial import distance_matrix
 from scipy.sparse import csr_matrix
 from scipy.sparse.csgraph import minimum_spanning_tree
-from sklearn.model_selection import LeaveOneOut
-from sklearn.neighbors import KNeighborsClassifier
+from sklearn.neighbors import KNeighborsClassifier, kneighbors_graph
 
 def n1(X, y):
     """
@@ -26,10 +25,10 @@ def n1(X, y):
     :rtype: float
     :returns: N1 score
     """
-    
+
     X = np.copy(X)
     y = np.copy(y)
-    
+
     dist = distance_matrix(X, X)
     graph = csr_matrix(dist)
     mst = minimum_spanning_tree(graph)
@@ -38,7 +37,7 @@ def n1(X, y):
 
     return (np.sum(np.sum(y[coordinates], axis=1)==1)/2)/y.shape[0]
 
-def n2(X, y):    
+def n2(X, y):
     """
     Calculates the Ratio of intra/extra class NN distance (N2) metric.
 
@@ -55,8 +54,8 @@ def n2(X, y):
 
     :rtype: float
     :returns: N2 score
-    """   
-    
+    """
+
     X = np.copy(X)
     y = np.copy(y)
 
@@ -93,20 +92,16 @@ def n3(X, y):
 
     :rtype: float
     :returns: N3 score
-    """   
-
+    """
     X = np.copy(X)
     y = np.copy(y)
 
-    loo = LeaveOneOut()
+    neighbors = kneighbors_graph(X, n_neighbors=1, mode='connectivity', include_self=False).nonzero()[1]
 
-    correct = []
-    for train_index, test_index in loo.split(X):
-        correct.append(KNeighborsClassifier(n_neighbors=1).fit(X[train_index], y[train_index]).predict(X[test_index]) == y[test_index])
+    correct = y == y[neighbors]
+    acc = np.sum(correct)/len(correct)
 
-    acc = np.sum(np.array(correct))/len(correct)
     return 1-acc
-
 
 def n4(X, y):
     """
@@ -125,8 +120,8 @@ def n4(X, y):
 
     :rtype: float
     :returns: N4 score
-    """   
-    
+    """
+
     X = np.copy(X)
     y = np.copy(y)
 
@@ -142,9 +137,9 @@ def n4(X, y):
     y_new = np.concatenate((np.zeros(pairs_0.shape[0]), np.ones(pairs_1.shape[0])), axis=0)
     rand = np.random.random(pairs.shape[0]).reshape(-1,1)
 
-    distance = X[pairs[:,0]]-X[pairs[:,1]]    
+    distance = X[pairs[:,0]]-X[pairs[:,1]]
     rand_distance = rand * distance
-    
+
     X_new = X[pairs[:,1]] + rand_distance
 
     knn = KNeighborsClassifier()
@@ -179,11 +174,11 @@ def t1(X, y):
 
     :rtype: float
     :returns: T1 score
-    """   
+    """
 
     X = np.copy(X)
     y = np.copy(y)
-    
+
     dist = distance_matrix(X, X)
     dist_y = distance_matrix(y[:, np.newaxis], y[:, np.newaxis])
 
@@ -224,7 +219,7 @@ def t1(X, y):
 
         if False not in covered:
             break
-    
+
     return hyper/X.shape[0]
 
 def lsc(X, y):
@@ -244,11 +239,11 @@ def lsc(X, y):
 
     :rtype: float
     :returns: LSC score
-    """   
+    """
 
     X = np.copy(X)
     y = np.copy(y)
-    
+
     dist = distance_matrix(X, X)
     dist_y = distance_matrix(y[:, np.newaxis], y[:, np.newaxis])
 
@@ -259,5 +254,5 @@ def lsc(X, y):
     nearest_enemies = np.argmin(dist_enemies, axis=0)
     ne_dist = dist[np.arange(y.shape[0]), nearest_enemies]
 
-    ls = np.argwhere(dist<ne_dist)    
+    ls = np.argwhere(dist<ne_dist)
     return 1 - (ls.shape[0]/np.power(y.shape[0],2))
