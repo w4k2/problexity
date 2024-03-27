@@ -77,7 +77,7 @@ def n2(X, y):
 
 def n3(X, y):
     """
-    Calculates the Error rate of NN classifier (N4) metric.
+    Calculates the Error rate of NN classifier (N3) metric.
 
     Measure is determined by the error rate of the One Nearest Neighbor Classifier in the Leave One Out evaluation protocol.
 
