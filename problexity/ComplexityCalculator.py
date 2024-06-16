@@ -78,7 +78,7 @@ class ComplexityCalculator:
         }
     }
     """
-    def __init__(self, metrics=None, colors=None, ranges=None, weights=None, mode='classification', multiclass_strategy='ovo'):
+    def __init__(self, metrics=C_METRICS, colors=None, ranges=None, weights=None, mode='classification', multiclass_strategy='ovo'):
         # Initlialize configuration
         if mode not in MODES:
             raise Exception('Unsupported mode %s, must be from list %s.' % (
@@ -101,7 +101,7 @@ class ComplexityCalculator:
                 self.ranges = R_RANGES
                 self.weights = R_WEIGHTS
             else:
-                self.metrics = C_METRICS
+                #self.metrics = C_METRICS
                 self.colors = C_COLORS
                 self.ranges = C_RANGES
                 self.weights = C_WEIGHTS
