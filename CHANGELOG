@@ -12,3 +12,4 @@
 0.5.4 - Normalize all feature correlation input data by default.
 0.5.5 - Upgrade score and report methods.
 0.5.6 - Handle one class instances only for F1v measure.
+0.5.8 - Add UserWarning in case not all parameters in [metrics, colors, ranges, weights] are passed.
