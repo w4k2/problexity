@@ -1,6 +1,7 @@
 from . import classification as c
 from . import regression as r
 import numpy as np
+import warnings
 
 C_METRICS = [c.f1, c.f1v, c.f2, c.f3, c.f4, c.l1, c.l2, c.l3, c.n1, c.n2, c.n3, c.n4,
              c.t1, c.lsc, c.density, c.clsCoef, c.hubs, c.t2, c.t3, c.t4, c.c1, c.c2]
@@ -89,6 +90,10 @@ class ComplexityCalculator:
             self.mode = mode
         
         # Set default metrics, colors and ranges based on mode, if not provided
+        _passed_params = np.sum([_ is None for _ in [metrics, colors, ranges, weights]])
+        if  _passed_params > 0 and _passed_params < 4:
+            warnings.warn('Not passing all parameters in [metrics, colors, ranges, weights] will result in using default values.')
+            
         if None not in [metrics, colors, ranges, weights]:
             self.metrics = metrics
             self.colors = colors
