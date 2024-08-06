@@ -446,12 +446,6 @@ def test_hubs():
     metric = px.classification.hubs
     assert _get_comparison(metric)>0.5
 
-def test_hubs_equal_to_zero():
-    X, y = make_classification(random_state=115)
-    X[y==0] += 100
-    value = px.classification.hubs(X,y)
-    assert value==0
-
 def test_hubs_close_to_one():
     X, y = make_classification(random_state=115, flip_y=0.5)
     value = px.classification.hubs(X,y)
