@@ -1,6 +1,5 @@
 # problexity
 
-[![w4k2](https://circleci.com/gh/w4k2/problexity.svg?style=shield)](https://circleci.com/gh/w4k2/problexity)
 [![codecov](https://codecov.io/gh/w4k2/problexity/branch/master/graph/badge.svg?token=KxuYRg7J8B)](https://codecov.io/gh/w4k2/problexity)
 [![Documentation Status](https://readthedocs.org/projects/problexity/badge/?version=latest)](http://problexity.readthedocs.io)
 [![PyPI version](https://badge.fury.io/py/problexity.svg)](https://badge.fury.io/py/problexity)
