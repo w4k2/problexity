@@ -11,4 +11,3 @@ pillow
 sphinxcontrib-bibtex
 igraph
 pandas
-setuptools
