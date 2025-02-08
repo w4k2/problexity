@@ -6,7 +6,7 @@ from sklearn.decomposition import PCA
 
 def t2(X, y):
     """
-    Calculates the Average number of features per dimension (T2) metric. 
+    Calculates the Average number of features per points (T2) metric. 
 
     To obtaint this measure, the number of dimensions describing the dataset is divided by the number of instances.
 
