@@ -42,7 +42,7 @@ def density(X, y):
     :type X: array-like, shape (n_samples, n_features)
     :param X: Dataset
     :type y: array-like, shape (n_samples)
-    :param y: Labels
+    :param y: Labels of binary classification task ([0,1])
 
     :rtype: float
     :returns: Density score
@@ -69,7 +69,7 @@ def clsCoef(X, y):
     :type X: array-like, shape (n_samples, n_features)
     :param X: Dataset
     :type y: array-like, shape (n_samples)
-    :param y: Labels
+    :param y: Labels of binary classification task ([0,1])
 
     :rtype: float
     :returns: Clustering Coefficient score
@@ -110,7 +110,7 @@ def hubs(X, y):
     :type X: array-like, shape (n_samples, n_features)
     :param X: Dataset
     :type y: array-like, shape (n_samples)
-    :param y: Labels
+    :param y: Labels of binary classification task ([0,1])
 
     :rtype: float
     :returns: Hubs score

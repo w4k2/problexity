@@ -20,7 +20,7 @@ def n1(X, y):
     :type X: array-like, shape (n_samples, n_features)
     :param X: Dataset
     :type y: array-like, shape (n_samples)
-    :param y: Labels
+    :param y: Labels of binary classification task ([0,1])
 
     :rtype: float
     :returns: N1 score
@@ -50,7 +50,7 @@ def n2(X, y):
     :type X: array-like, shape (n_samples, n_features)
     :param X: Dataset
     :type y: array-like, shape (n_samples)
-    :param y: Labels
+    :param y: Labels of binary classification task ([0,1])
 
     :rtype: float
     :returns: N2 score
@@ -88,7 +88,7 @@ def n3(X, y):
     :type X: array-like, shape (n_samples, n_features)
     :param X: Dataset
     :type y: array-like, shape (n_samples)
-    :param y: Labels
+    :param y: Labels of binary classification task ([0,1])
 
     :rtype: float
     :returns: N3 score
@@ -116,7 +116,7 @@ def n4(X, y):
     :type X: array-like, shape (n_samples, n_features)
     :param X: Dataset
     :type y: array-like, shape (n_samples)
-    :param y: Labels
+    :param y: Labels of binary classification task ([0,1])
 
     :rtype: float
     :returns: N4 score
@@ -170,7 +170,7 @@ def t1(X, y):
     :type X: array-like, shape (n_samples, n_features)
     :param X: Dataset
     :type y: array-like, shape (n_samples)
-    :param y: Labels
+    :param y: Labels of binary classification task ([0,1])
 
     :rtype: float
     :returns: T1 score
@@ -235,7 +235,7 @@ def lsc(X, y):
     :type X: array-like, shape (n_samples, n_features)
     :param X: Dataset
     :type y: array-like, shape (n_samples)
-    :param y: Labels
+    :param y: Labels of binary classification task ([0,1])
 
     :rtype: float
     :returns: LSC score

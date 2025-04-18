@@ -15,7 +15,7 @@ def c1(X, y):
     :type X: array-like, shape (n_samples, n_features)
     :param X: Dataset
     :type y: array-like, shape (n_samples)
-    :param y: Labels
+    :param y: Labels of binary classification task ([0,1])
 
     :rtype: float
     :returns: C1 score
@@ -40,7 +40,7 @@ def c2(X, y):
     :type X: array-like, shape (n_samples, n_features)
     :param X: Dataset
     :type y: array-like, shape (n_samples)
-    :param y: Labels
+    :param y: Labels of binary classification task ([0,1])
 
     :rtype: float
     :returns: C2 score

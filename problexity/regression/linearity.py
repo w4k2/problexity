@@ -17,7 +17,7 @@ def l1(X, y, normalize=True):
     :type X: array-like, shape (n_samples, n_features)
     :param X: Dataset
     :type y: array-like, shape (n_samples)
-    :param y: Labels
+    :param y: Labels for regression task
 
     :rtype: float
     :returns: L1 score
@@ -50,7 +50,7 @@ def l2(X, y, normalize = True):
     :type X: array-like, shape (n_samples, n_features)
     :param X: Dataset
     :type y: array-like, shape (n_samples)
-    :param y: Labels
+    :param y: Labels for regression task
 
     :rtype: float
     :returns: L2 score

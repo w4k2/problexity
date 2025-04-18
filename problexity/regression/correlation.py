@@ -19,7 +19,7 @@ def c1(X, y, normalize=True):
     :type X: array-like, shape (n_samples, n_features)
     :param X: Dataset
     :type y: array-like, shape (n_samples)
-    :param y: Labels
+    :param y: Labels for regression task
 
     :rtype: float
     :returns: C1 score
@@ -53,7 +53,7 @@ def c2(X, y, normalize = True):
     :type X: array-like, shape (n_samples, n_features)
     :param X: Dataset
     :type y: array-like, shape (n_samples)
-    :param y: Labels
+    :param y: Labels for regression task
 
     :rtype: float
     :returns: C2 score
@@ -168,7 +168,7 @@ def c3(X, y, is_optimized=True, normalize=True):
     :type X: array-like, shape (n_samples, n_features)
     :param X: Dataset
     :type y: array-like, shape (n_samples)
-    :param y: Labels
+    :param y: Labels for regression task
 
     :rtype: float
     :returns: C3 score
@@ -198,7 +198,7 @@ def c4(X, y, normalize = True):
     :type X: array-like, shape (n_samples, n_features)
     :param X: Dataset
     :type y: array-like, shape (n_samples)
-    :param y: Labels
+    :param y: Labels for regression task
 
     :rtype: float
     :returns: C4 score

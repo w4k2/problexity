@@ -18,7 +18,7 @@ def l3(X, y, normalize=True):
     :type X: array-like, shape (n_samples, n_features)
     :param X: Dataset
     :type y: array-like, shape (n_samples)
-    :param y: Labels
+    :param y: Labels for regression task
 
     :rtype: float
     :returns: L3 score
@@ -68,7 +68,7 @@ def s4(X, y, normalize=True):
     :type X: array-like, shape (n_samples, n_features)
     :param X: Dataset
     :type y: array-like, shape (n_samples)
-    :param y: Labels
+    :param y: Labels for regression task
 
     :rtype: float
     :returns: S4 score
@@ -117,7 +117,7 @@ def t2(X, y):
     :type X: array-like, shape (n_samples, n_features)
     :param X: Dataset
     :type y: array-like, shape (n_samples)
-    :param y: Labels
+    :param y: Labels for regression task
 
     :rtype: float
     :returns: T2 score

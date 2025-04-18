@@ -21,7 +21,7 @@ def s1(X, y, normalize=True):
     :type X: array-like, shape (n_samples, n_features)
     :param X: Dataset
     :type y: array-like, shape (n_samples)
-    :param y: Labels
+    :param y: Labels for regression task
 
     :rtype: float
     :returns: S1 score
@@ -60,7 +60,7 @@ def s2(X, y, normalize=True):
     :type X: array-like, shape (n_samples, n_features)
     :param X: Dataset
     :type y: array-like, shape (n_samples)
-    :param y: Labels
+    :param y: Labels for regression task
 
     :rtype: float
     :returns: S2 score
@@ -97,7 +97,7 @@ def s3(X, y, normalize=True):
     :type X: array-like, shape (n_samples, n_features)
     :param X: Dataset
     :type y: array-like, shape (n_samples)
-    :param y: Labels
+    :param y: Labels for regression task
 
     :rtype: float
     :returns: S3 score

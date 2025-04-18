@@ -13,3 +13,4 @@
 0.5.5 - Upgrade score and report methods.
 0.5.6 - Handle one class instances only for F1v measure.
 0.5.8 - Add UserWarning in case not all parameters in [metrics, colors, ranges, weights] are passed.
+0.5.10 - Fix calculation of classification.L1 to use scikit-learn decision function, improve documentation (labels in [0,1]).

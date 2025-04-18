@@ -17,7 +17,7 @@ def l1(X, y):
     :type X: array-like, shape (n_samples, n_features)
     :param X: Dataset
     :type y: array-like, shape (n_samples)
-    :param y: Labels
+    :param y: Labels of binary classification task ([0,1])
 
     :rtype: float
     :returns: L1 score
@@ -25,15 +25,13 @@ def l1(X, y):
     X = np.copy(X)
     y = np.copy(y)
 
-    svm = LinearSVC()
-    pred = svm.fit(X, y).predict(X)
-
-    X_mistakes = X[pred!=y]
-    y_mistakes = y[pred!=y]
-
-    fun = (np.dot(svm.coef_.flatten(),X_mistakes.T))+svm.intercept_    
-    loss = np.sum( np.max((np.zeros((len(y_mistakes))), 1-(y_mistakes*fun)), axis=0))
-    sed = loss/y.shape[0]
+    svm = LinearSVC().fit(X, y)
+    incorrect = svm.predict(X)!=y
+    
+    w_norm = np.linalg.norm(svm.coef_)
+    dist = np.abs(svm.decision_function(X) / w_norm)
+    
+    sed = np.sum(dist[incorrect])/y.shape[0]
     return sed/(1+sed)
 
 def l2(X, y):
@@ -49,7 +47,7 @@ def l2(X, y):
     :type X: array-like, shape (n_samples, n_features)
     :param X: Dataset
     :type y: array-like, shape (n_samples)
-    :param y: Labels
+    :param y: Labels of binary classification task ([0,1])
 
     :rtype: float
     :returns: L2 score
@@ -77,7 +75,7 @@ def l3(X, y):
     :type X: array-like, shape (n_samples, n_features)
     :param X: Dataset
     :type y: array-like, shape (n_samples)
-    :param y: Labels
+    :param y: Labels of binary classification task ([0,1])
 
     :rtype: float
     :returns: L3 score

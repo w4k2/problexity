@@ -133,9 +133,9 @@ class ComplexityCalculator:
         Calculates metrics for given dataset.
 
         :type X: array-like, shape (n_samples, n_features)
-        :param X: The training input samples.
+        :param X: The input samples.
         :type y: array-like, shape (n_samples, )
-        :param y: The training input labels.
+        :param y: The input labels. In case of classification may represent binary or multi-class problem.
 
         :rtype: ComplexityCalculator class object
         :returns: ComplexityCalculator class object.

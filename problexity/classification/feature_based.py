@@ -16,7 +16,7 @@ def f1(X, y):
     :type X: array-like, shape (n_samples, n_features)
     :param X: Dataset
     :type y: array-like, shape (n_samples)
-    :param y: Labels
+    :param y: Labels of binary classification task ([0,1])
 
     :rtype: float
     :returns: F1 score
@@ -57,7 +57,7 @@ def f1v(X, y):
     :type X: array-like, shape (n_samples, n_features)
     :param X: Dataset
     :type y: array-like, shape (n_samples)
-    :param y: Labels
+    :param y: Labels of binary classification task ([0,1])
 
     :rtype: float
     :returns: F1v score
@@ -118,7 +118,7 @@ def f2(X, y):
     :type X: array-like, shape (n_samples, n_features)
     :param X: Dataset
     :type y: array-like, shape (n_samples)
-    :param y: Labels
+    :param y: Labels of binary classification task ([0,1])
 
     :rtype: float
     :returns: F2 score
@@ -153,7 +153,7 @@ def f3(X, y):
     :type X: array-like, shape (n_samples, n_features)
     :param X: Dataset
     :type y: array-like, shape (n_samples)
-    :param y: Labels
+    :param y: Labels of binary classification task ([0,1])
 
     :rtype: float
     :returns: F3 score
@@ -190,7 +190,7 @@ def f4(X, y):
     :type X: array-like, shape (n_samples, n_features)
     :param X: Dataset
     :type y: array-like, shape (n_samples)
-    :param y: Labels
+    :param y: Labels of binary classification task ([0,1])
 
     :rtype: float
     :returns: F4 score
