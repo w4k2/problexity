@@ -1,5 +1,5 @@
 numpy
-scipy==1.12.0
+scipy
 scikit-learn
 numpydoc
 matplotlib
