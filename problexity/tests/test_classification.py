@@ -266,7 +266,7 @@ def test_N2_equal_to_half():
     assert value==0.5
 
 def test_N2_imbalance():
-    X, y = make_classification(random_state=115, weights=[.99, .01], flip_y=0.)
+    X, y = make_classification(random_state=115, weights=[.99, .01], flip_y=0., n_samples=300)
     value = px.classification.n2(X,y)
     assert 0 <= value <= 1 
 
