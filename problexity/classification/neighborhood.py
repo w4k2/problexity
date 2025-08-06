@@ -45,7 +45,7 @@ def n2(X, y):
 
     .. math::
 
-        N2=\\frac{infra\_extra}{1+infra\_extra}
+        N2=\\frac{intra\_extra}{1+intra\_extra}
 
     :type X: array-like, shape (n_samples, n_features)
     :param X: Dataset
@@ -63,16 +63,20 @@ def n2(X, y):
     X_1 = X[y==1]
 
     try:
-        infra_0 = distance_matrix(X_0, X_0)
-        infra_1 = distance_matrix(X_1, X_1)
+        dm_intra_0 = distance_matrix(X_0, X_0)
+        dm_intra_1 = distance_matrix(X_1, X_1)
+        intra_0 = dm_intra_0[np.arange(len(X_0)),np.argsort(dm_intra_0)[:,1]]
+        intra_1 = dm_intra_1[np.arange(len(X_1)),np.argsort(dm_intra_1)[:,1]]
 
-        extra_0 = distance_matrix(X_0, X_1)
-        extra_1 = distance_matrix(X_1, X_0)
+        dm_extra_0 = distance_matrix(X_0, X_1)
+        dm_extra_1 = distance_matrix(X_1, X_0)
+        extra_0 = dm_extra_0[np.arange(len(X_0)),np.argsort(dm_extra_0)[:,1]]
+        extra_1 = dm_extra_1[np.arange(len(X_1)),np.argsort(dm_extra_1)[:,1]]
     except:
         return np.nan
 
-    infra_extra = (np.sum(infra_0)+np.sum(infra_1))/(np.sum(extra_0)+np.sum(extra_1))
-    return infra_extra/(1+infra_extra)
+    intra_extra = (np.sum(intra_0)+np.sum(intra_1))/(np.sum(extra_0)+np.sum(extra_1))
+    return intra_extra/(1+intra_extra)
 
 
 def n3(X, y):
